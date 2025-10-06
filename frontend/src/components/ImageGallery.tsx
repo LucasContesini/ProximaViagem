@@ -33,10 +33,29 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, name }) => {
 
       {lightboxOpen && (
         <div className="lightbox" onClick={() => setLightboxOpen(false)}>
-          <button className="lightbox-close" onClick={() => setLightboxOpen(false)}>✕</button>
-          <button className="lightbox-prev" onClick={(e) => { e.stopPropagation(); prev(); }}>‹</button>
-          <img src={images[currentIndex]} alt={name} onClick={(e) => e.stopPropagation()} />
-          <button className="lightbox-next" onClick={(e) => { e.stopPropagation(); next(); }}>›</button>
+          <button 
+            className="lightbox-close" 
+            onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
+          >
+            ✕
+          </button>
+          <button 
+            className="lightbox-prev" 
+            onClick={(e) => { e.stopPropagation(); prev(); }}
+          >
+            ‹
+          </button>
+          <img 
+            src={images[currentIndex]} 
+            alt={name} 
+            onClick={(e) => e.stopPropagation()} 
+          />
+          <button 
+            className="lightbox-next" 
+            onClick={(e) => { e.stopPropagation(); next(); }}
+          >
+            ›
+          </button>
           <div className="lightbox-counter">{currentIndex + 1} / {images.length}</div>
         </div>
       )}
