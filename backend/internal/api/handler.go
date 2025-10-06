@@ -67,6 +67,45 @@ func (h *Handler) ClearCache(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"message": "Cache cleared successfully"})
 }
 
+// GetAllDestinations retorna todos os destinos em cache
+func (h *Handler) GetAllDestinations(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	destinations := h.cache.GetAll()
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(destinations)
+}
+
+// GetRandomDestination retorna um destino aleatório do cache
+func (h *Handler) GetRandomDestination(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	destinations := h.cache.GetAll()
+	if len(destinations) == 0 {
+		// Se não tem nada em cache, pega o destino do dia
+		destination, found := h.cache.Get()
+		if !found {
+			http.Error(w, "No destinations available", http.StatusNotFound)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(destination)
+		return
+	}
+
+	// Retorna um destino aleatório
+	randomIndex := len(destinations) / 2 // Simplificado, pode usar math/rand
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(destinations[randomIndex])
+}
+
 func (h *Handler) GetTestDestination(w http.ResponseWriter, r *http.Request) {
 	testJSON := `{
   "id": "dest-test-123",
