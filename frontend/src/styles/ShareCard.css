@@ -1,0 +1,115 @@
+.share-card-container {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.download-card-btn {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.download-card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+}
+
+.share-card-preview {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.share-card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.share-card-header h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+}
+
+.share-card-header p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.share-card-image {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.share-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.share-card-content {
+  padding: 2rem;
+  text-align: left;
+}
+
+.share-card-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  color: #2d3748;
+}
+
+.share-card-country {
+  color: #667eea;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.share-card-description {
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+}
+
+.share-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 2px solid #f0f0f0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.share-card-url {
+  font-weight: 600;
+  color: #667eea;
+}
+
+.share-card-hint {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .share-card-preview {
+    max-width: 100%;
+  }
+  
+  .share-card-content h3 {
+    font-size: 1.5rem;
+  }
+}

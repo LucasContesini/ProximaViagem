@@ -4,6 +4,7 @@ import { ShareButtons } from './ShareButtons';
 import { FavoriteButton } from './FavoriteButton';
 import { MapButton } from './MapButton';
 import { ImageGallery } from './ImageGallery';
+import { ShareCard } from './ShareCard';
 import '../styles/DestinationCard.css';
 
 interface DestinationCardProps {
@@ -164,6 +165,8 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
         </div>
 
         <ShareButtons destination={destination} />
+        
+        <ShareCard destination={destination} />
       </div>
     </div>
   );
