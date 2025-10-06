@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://seu-dominio.com/sitemap.xml
+Sitemap: https://frontend-nu-tawny-84.vercel.app/sitemap.xml
+
+# Crawl-delay para ser gentil com os servidores
+Crawl-delay: 1
 

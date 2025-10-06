@@ -50,12 +50,12 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
   "country": "Brasil",
   "description": "Descrição atraente e envolvente do destino em 3-4 frases",
   "detailedInfo": "Informação detalhada sobre o destino, sua história, cultura, características únicas e o que torna esse lugar especial. Mínimo 4-5 frases bem elaboradas.",
-  "imageUrl": "https://images.unsplash.com/photo-exemplo?w=800",
+  "imageUrl": "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800",
   "images": [
-    "https://images.unsplash.com/photo-1?w=800",
-    "https://images.unsplash.com/photo-2?w=800",
-    "https://images.unsplash.com/photo-3?w=800",
-    "https://images.unsplash.com/photo-4?w=800"
+    "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800",
+    "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=800",
+    "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800",
+    "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800"
   ],
   "tips": [
     "Dica detalhada 1 com informações práticas e úteis",
@@ -122,7 +122,9 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
 
 IMPORTANTE: 
 - Escolha APENAS destinos turísticos brasileiros variados (cidades históricas, praias, montanhas, parques nacionais, capitais, cidades do interior)
-- Use URLs reais do Unsplash relacionadas especificamente ao destino brasileiro escolhido
+- Use URLs do Unsplash no formato: https://images.unsplash.com/photo-XXXXXXXXXX?w=800 (substitua XXXXXXXXXX por IDs reais de fotos)
+- NUNCA use source.unsplash.com, use apenas images.unsplash.com com IDs de fotos específicas
+- Busque fotos reais do Brasil no Unsplash relacionadas ao destino escolhido
 - Seja MUITO detalhado e informativo em todas as descrições
 - Forneça informações práticas e úteis que realmente ajudem o viajante
 - Inclua pelo menos 6 atrações diferentes e bem descritas
