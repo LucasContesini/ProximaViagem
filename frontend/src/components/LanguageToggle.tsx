@@ -15,7 +15,7 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({ onLanguageChange
       setCurrentLang(saved);
       onLanguageChange(saved);
     }
-  }, []);
+  }, [onLanguageChange]);
 
   const changeLang = (lang: Language) => {
     setCurrentLang(lang);
