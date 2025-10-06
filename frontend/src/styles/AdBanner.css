@@ -1,0 +1,22 @@
+.ad-banner {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adsbygoogle {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .ad-banner {
+    margin: 1rem 0;
+    padding: 0.5rem;
+  }
+}
+
