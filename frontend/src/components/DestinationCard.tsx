@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Destination } from '../types';
 import { ShareButtons } from './ShareButtons';
+import { FavoriteButton } from './FavoriteButton';
+import { MapButton } from './MapButton';
 import '../styles/DestinationCard.css';
 
 interface DestinationCardProps {
@@ -149,6 +151,11 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
             <strong>Melhor Época:</strong>
             <p>{destination.bestTime}</p>
           </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', margin: '1.5rem 0' }}>
+          <FavoriteButton destination={destination} />
+          <MapButton destination={destination} />
         </div>
 
         <ShareButtons destination={destination} />

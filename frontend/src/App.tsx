@@ -3,14 +3,22 @@ import { DestinationCard } from './components/DestinationCard';
 import { Loading } from './components/Loading';
 import { Error } from './components/Error';
 import { AdBanner } from './components/AdBanner';
+import { InstallPWA } from './components/InstallPWA';
+import { DestinationHistory } from './components/DestinationHistory';
+import { FavoritesList } from './components/FavoritesList';
+import { DarkModeToggle } from './components/DarkModeToggle';
 import { useDestination } from './hooks/useDestination';
 import './styles/App.css';
 
 function App() {
-  const { destination, loading, error } = useDestination();
+  const { destination, loading, error, updateDestination } = useDestination();
 
   return (
     <div className="app">
+      <DarkModeToggle />
+      <InstallPWA />
+      <FavoritesList onSelectDestination={updateDestination} />
+      <DestinationHistory onSelectDestination={updateDestination} />
       <Header />
       
       <main className="main-content">

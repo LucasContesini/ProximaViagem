@@ -1,0 +1,159 @@
+.dark-mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark Mode Styles */
+:root.dark-mode {
+  --bg-primary: #1a202c;
+  --bg-secondary: #2d3748;
+  --text-primary: #f7fafc;
+  --text-secondary: #e2e8f0;
+  --border-color: #4a5568;
+}
+
+.dark-mode {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.dark-mode .app {
+  background: var(--bg-primary);
+}
+
+.dark-mode .header {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .destination-card {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.dark-mode .card-content {
+  background: var(--bg-secondary);
+}
+
+.dark-mode .section {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .attraction-card,
+.dark-mode .budget-item {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-color);
+}
+
+.dark-mode .section-title,
+.dark-mode .destination-name,
+.dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4 {
+  color: var(--text-primary);
+}
+
+.dark-mode p,
+.dark-mode .description,
+.dark-mode .detailed-text,
+.dark-mode .info-text {
+  color: var(--text-secondary);
+}
+
+.dark-mode .share-buttons {
+  background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+}
+
+.dark-mode .share-title {
+  color: var(--text-primary);
+}
+
+.dark-mode .history-content,
+.dark-mode .favorites-content {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.dark-mode .history-header,
+.dark-mode .favorites-header {
+  border-bottom-color: var(--border-color);
+}
+
+.dark-mode .history-header h2,
+.dark-mode .favorites-header h2 {
+  color: var(--text-primary);
+}
+
+.dark-mode .history-item,
+.dark-mode .favorites-item {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .history-item:hover,
+.dark-mode .favorites-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .history-item-name,
+.dark-mode .favorites-item-name {
+  color: var(--text-primary);
+}
+
+.dark-mode .history-item-description,
+.dark-mode .favorites-item-description,
+.dark-mode .history-item-country,
+.dark-mode .favorites-item-country {
+  color: var(--text-secondary);
+}
+
+.dark-mode .history-close,
+.dark-mode .favorites-close {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.dark-mode .history-close:hover,
+.dark-mode .favorites-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .favorites-empty {
+  color: var(--text-secondary);
+}
+
+.dark-mode .favorites-empty h3 {
+  color: var(--text-primary);
+}
+
+.dark-mode .footer {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .dark-mode-toggle {
+    top: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+}
