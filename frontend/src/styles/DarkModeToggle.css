@@ -56,8 +56,8 @@
 }
 
 .dark-mode .section {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .dark-mode .attraction-card,
@@ -79,12 +79,16 @@
 }
 
 .dark-mode .best-time {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .dark-mode .best-time strong {
-  color: var(--text-primary);
+  color: #ffffff;
+}
+
+.dark-mode .best-time span {
+  color: #f7fafc;
 }
 
 .dark-mode .section-title,
@@ -98,6 +102,19 @@
 .dark-mode .detailed-text,
 .dark-mode .info-text {
   color: var(--text-secondary);
+}
+
+/* Melhor contraste para seções de transporte e hospedagem */
+.dark-mode .section p,
+.dark-mode .section .detailed-text,
+.dark-mode .section .info-text {
+  color: #f7fafc;
+  line-height: 1.8;
+}
+
+.dark-mode .section strong {
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .dark-mode .share-buttons {
