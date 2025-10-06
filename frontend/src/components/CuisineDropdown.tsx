@@ -3,7 +3,7 @@ import { CuisineDish } from '../types';
 import '../styles/CuisineDropdown.css';
 
 interface CuisineDropdownProps {
-  dishes: CuisineDish[];
+  dishes: CuisineDish[] | string[];
 }
 
 export const CuisineDropdown: React.FC<CuisineDropdownProps> = ({ dishes }) => {
@@ -13,9 +13,23 @@ export const CuisineDropdown: React.FC<CuisineDropdownProps> = ({ dishes }) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  // Normalizar dados para suportar formato antigo (string[]) e novo (CuisineDish[])
+  const normalizedDishes: CuisineDish[] = dishes.map((dish) => {
+    if (typeof dish === 'string') {
+      // Formato antigo: apenas string
+      return {
+        name: dish,
+        description: 'Prato típico da região',
+        imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400'
+      };
+    }
+    // Formato novo: já é um objeto CuisineDish
+    return dish;
+  });
+
   return (
     <div className="cuisine-dropdown-container">
-      {dishes.map((dish, index) => (
+      {normalizedDishes.map((dish, index) => (
         <div key={index} className="cuisine-item">
           <button
             className={`cuisine-header ${openIndex === index ? 'active' : ''}`}

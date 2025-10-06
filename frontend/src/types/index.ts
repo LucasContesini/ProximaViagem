@@ -31,7 +31,7 @@ export interface Destination {
   budget: Budget;
   transportation: string;
   accommodation: string;
-  localCuisine: CuisineDish[];
+  localCuisine: CuisineDish[] | string[]; // Suporta ambos os formatos
   date: string;
 }
 
