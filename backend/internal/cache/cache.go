@@ -21,19 +21,23 @@ func (c *Cache) Get() (*models.Destination, bool) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 
-	if c.destination == nil {
-		return nil, false
-	}
+	// Temporariamente sempre retorna false para forçar nova geração
+	// Remova estas linhas depois de testar
+	return nil, false
 
-	now := time.Now()
-	lastUpdateDate := c.lastUpdate.Format("2006-01-02")
-	todayDate := now.Format("2006-01-02")
+	// if c.destination == nil {
+	// 	return nil, false
+	// }
 
-	if lastUpdateDate != todayDate {
-		return nil, false
-	}
+	// now := time.Now()
+	// lastUpdateDate := c.lastUpdate.Format("2006-01-02")
+	// todayDate := now.Format("2006-01-02")
 
-	return c.destination, true
+	// if lastUpdateDate != todayDate {
+	// 	return nil, false
+	// }
+
+	// return c.destination, true
 }
 
 func (c *Cache) Set(destination *models.Destination) {

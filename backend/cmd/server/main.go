@@ -29,8 +29,8 @@ func main() {
 	handler := api.NewHandler(cacheInstance, aiClient)
 
 	r := mux.NewRouter()
-	r.HandleFunc("/api/destination", handler.GetTestDestination).Methods("GET")
-	r.HandleFunc("/api/destination/real", handler.GetDailyDestination).Methods("GET")
+	r.HandleFunc("/api/destination", handler.GetDailyDestination).Methods("GET")
+	r.HandleFunc("/api/destination/test", handler.GetTestDestination).Methods("GET")
 	r.HandleFunc("/api/health", handler.HealthCheck).Methods("GET")
 	r.HandleFunc("/api/cache/clear", handler.ClearCache).Methods("POST")
 
