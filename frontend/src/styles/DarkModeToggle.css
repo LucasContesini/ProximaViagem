@@ -108,7 +108,8 @@
 .dark-mode .section p,
 .dark-mode .section .detailed-text,
 .dark-mode .section .info-text,
-.dark-mode .detailed-info .detailed-text {
+.dark-mode .detailed-info .detailed-text,
+.dark-mode .info-text {
   color: #f7fafc !important;
   line-height: 1.8;
 }
@@ -127,6 +128,22 @@
 .dark-mode .detailed-info p,
 .dark-mode .detailed-info .detailed-text {
   color: #f7fafc !important;
+}
+
+/* Forçar visibilidade do texto em TODAS as seções */
+.dark-mode .card-content .section p {
+  color: #f7fafc !important;
+}
+
+.dark-mode .card-content p {
+  color: #e2e8f0 !important;
+}
+
+/* Corrigir especificamente .info-text que tem background branco */
+.dark-mode .info-text {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: var(--text-secondary) !important;
+  border-left: 3px solid #667eea;
 }
 
 .dark-mode .share-buttons {
