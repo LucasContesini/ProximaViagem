@@ -50,13 +50,13 @@ func (c *Cache) Set(destination *models.Destination) {
 	// Usar sempre horário de São Paulo
 	loc, _ := time.LoadLocation("America/Sao_Paulo")
 	now := time.Now().In(loc)
-	
+
 	c.destination = destination
 	c.lastUpdate = now
-	
+
 	// Armazenar no cache geral por ID
 	c.allDestinations[destination.ID] = destination
-	
+
 	// Armazenar no cache por data
 	dateKey := now.Format("2006-01-02")
 	c.destinationsByDay[dateKey] = destination

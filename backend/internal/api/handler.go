@@ -75,7 +75,7 @@ func (h *Handler) GetAllDestinations(w http.ResponseWriter, r *http.Request) {
 	}
 
 	destinations := h.cache.GetAll()
-	
+
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(destinations)
 }
