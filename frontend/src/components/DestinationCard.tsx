@@ -5,6 +5,7 @@ import { FavoriteButton } from './FavoriteButton';
 import { MapButton } from './MapButton';
 import { ImageGallery } from './ImageGallery';
 import { ShareCard } from './ShareCard';
+import { CuisineDropdown } from './CuisineDropdown';
 import '../styles/DestinationCard.css';
 
 interface DestinationCardProps {
@@ -143,11 +144,7 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
         {destination.localCuisine && destination.localCuisine.length > 0 && (
           <div className="section">
             <h3 className="section-title">🍽️ Gastronomia Local</h3>
-            <ul className="list cuisine-list">
-              {destination.localCuisine.map((dish, index) => (
-                <li key={index}>{dish}</li>
-              ))}
-            </ul>
+            <CuisineDropdown dishes={destination.localCuisine} destinationName={destination.name} />
           </div>
         )}
 
