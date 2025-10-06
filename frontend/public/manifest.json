@@ -1,0 +1,39 @@
+{
+  "name": "Próxima Viagem - Descubra Destinos Incríveis",
+  "short_name": "Próxima Viagem",
+  "description": "Descubra um novo destino de viagem todos os dias! Inspiração diária com dicas, atrações e orçamento.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["travel", "lifestyle", "entertainment"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Destino do Dia",
+      "short_name": "Destino",
+      "description": "Ver o destino de hoje",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any"
+        }
+      ]
+    }
+  ]
+}

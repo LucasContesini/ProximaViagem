@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Destination } from '../types';
+import { ShareButtons } from './ShareButtons';
 import '../styles/DestinationCard.css';
 
 interface DestinationCardProps {
@@ -149,6 +150,8 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
             <p>{destination.bestTime}</p>
           </div>
         </div>
+
+        <ShareButtons destination={destination} />
       </div>
     </div>
   );

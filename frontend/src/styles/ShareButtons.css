@@ -1,0 +1,126 @@
+.share-buttons {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.share-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.share-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.share-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.share-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.share-button:active {
+  transform: translateY(0);
+}
+
+.share-button svg {
+  flex-shrink: 0;
+}
+
+/* WhatsApp */
+.share-button.whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+
+.share-button.whatsapp:hover {
+  background: linear-gradient(135deg, #128C7E 0%, #075E54 100%);
+}
+
+/* Facebook */
+.share-button.facebook {
+  background: linear-gradient(135deg, #1877F2 0%, #0C63D4 100%);
+}
+
+.share-button.facebook:hover {
+  background: linear-gradient(135deg, #0C63D4 0%, #084D9F 100%);
+}
+
+/* Twitter */
+.share-button.twitter {
+  background: linear-gradient(135deg, #1DA1F2 0%, #0C85D0 100%);
+}
+
+.share-button.twitter:hover {
+  background: linear-gradient(135deg, #0C85D0 0%, #0A6FB0 100%);
+}
+
+/* Copy Link */
+.share-button.copy {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.share-button.copy:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.share-button.copy.copied {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+/* Native Share */
+.share-button.native {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.share-button.native:hover {
+  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .share-buttons-container {
+    flex-direction: column;
+  }
+
+  .share-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-buttons {
+    padding: 1rem;
+  }
+
+  .share-title {
+    font-size: 1rem;
+  }
+
+  .share-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}

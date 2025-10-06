@@ -57,6 +57,19 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
     "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800",
     "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800"
   ],
+  
+  IMPORTANTE SOBRE IMAGENS: Use APENAS URLs de fotos REAIS do Unsplash. 
+  Exemplos de IDs válidos de fotos do Brasil:
+  - photo-1483729558449-99ef09a8c325 (Rio de Janeiro)
+  - photo-1516306580123-e6e52b1b7b5f (Praia brasileira)
+  - photo-1488646953014-85cb44e25828 (Cristo Redentor)
+  - photo-1473496169904-658ba7c44d8a (Natureza Brasil)
+  - photo-1516259762381-22954d7d3ad2 (Praia)
+  - photo-1483729558449-99ef09a8c325 (Cidade)
+  - photo-1518709268805-4e9042af9f23 (Paisagem)
+  - photo-1469854523086-cc02fe5d8800 (Natureza)
+  
+  Escolha 4 IDs diferentes da lista acima para cada destino.
   "tips": [
     "Dica detalhada 1 com informações práticas e úteis",
     "Dica detalhada 2 sobre segurança ou economia",
@@ -122,9 +135,16 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
 
 IMPORTANTE: 
 - Escolha APENAS destinos turísticos brasileiros variados (cidades históricas, praias, montanhas, parques nacionais, capitais, cidades do interior)
-- Use URLs do Unsplash no formato: https://images.unsplash.com/photo-XXXXXXXXXX?w=800 (substitua XXXXXXXXXX por IDs reais de fotos)
-- NUNCA use source.unsplash.com, use apenas images.unsplash.com com IDs de fotos específicas
-- Busque fotos reais do Brasil no Unsplash relacionadas ao destino escolhido
+- Para as imagens, use APENAS estas URLs válidas do Unsplash (escolha 4 diferentes aleatoriamente):
+  * https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800
+  * https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=800
+  * https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800
+  * https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800
+  * https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=800
+  * https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800
+  * https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800
+  * https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800
+- NÃO invente IDs de fotos, use APENAS as URLs listadas acima
 - Seja MUITO detalhado e informativo em todas as descrições
 - Forneça informações práticas e úteis que realmente ajudem o viajante
 - Inclua pelo menos 6 atrações diferentes e bem descritas
