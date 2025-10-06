@@ -62,9 +62,16 @@
 
 .dark-mode .attraction-card,
 .dark-mode .budget-item {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: var(--text-primary);
+}
+
+/* Ajustar os detalhes das atrações (tempo e valor) */
+.dark-mode .attraction-detail {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .dark-mode .attraction-name,
