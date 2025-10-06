@@ -125,17 +125,32 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
   "transportation": "Informações detalhadas sobre como chegar e se locomover no destino, incluindo opções de transporte público, táxi, uber, aluguel de carro, etc.",
   "accommodation": "Sugestões de onde se hospedar, bairros recomendados, tipos de acomodação disponíveis (hotéis, pousadas, hostels, airbnb) com faixas de preço",
   "localCuisine": [
-    "Prato típico 1 - breve descrição",
-    "Prato típico 2 - breve descrição",
-    "Prato típico 3 - breve descrição",
-    "Prato típico 4 - breve descrição",
-    "Bebida típica - breve descrição"
+    {
+      "name": "Nome do Prato Típico 1",
+      "description": "Descrição detalhada do prato, ingredientes principais e por que experimentar",
+      "imageUrl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400"
+    },
+    {
+      "name": "Nome do Prato Típico 2",
+      "description": "Descrição detalhada do prato",
+      "imageUrl": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400"
+    },
+    {
+      "name": "Nome do Prato Típico 3",
+      "description": "Descrição detalhada do prato",
+      "imageUrl": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400"
+    },
+    {
+      "name": "Bebida Típica",
+      "description": "Descrição da bebida típica",
+      "imageUrl": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400"
+    }
   ]
 }
 
 IMPORTANTE: 
 - Escolha APENAS destinos turísticos brasileiros variados (cidades históricas, praias, montanhas, parques nacionais, capitais, cidades do interior)
-- Para as imagens, use APENAS estas URLs válidas do Unsplash (escolha 4 diferentes aleatoriamente):
+- Para as imagens do destino, use APENAS estas URLs válidas do Unsplash (escolha 4 diferentes aleatoriamente):
   * https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800
   * https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=800
   * https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800
@@ -144,12 +159,22 @@ IMPORTANTE:
   * https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800
   * https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800
   * https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800
+- Para as imagens de COMIDA (localCuisine), use APENAS estas URLs válidas:
+  * https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400 (comida geral)
+  * https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400 (prato)
+  * https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400 (pizza/massa)
+  * https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400 (hamburguer)
+  * https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400 (comida)
+  * https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400 (salada/bowl)
+  * https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400 (bebida)
+  * https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400 (sobremesa)
 - NÃO invente IDs de fotos, use APENAS as URLs listadas acima
 - Seja MUITO detalhado e informativo em todas as descrições
 - Forneça informações práticas e úteis que realmente ajudem o viajante
 - Inclua pelo menos 6 atrações diferentes e bem descritas
 - Dê dicas específicas e relevantes para aquele destino
-- Seja criativo e escolha destinos diversos do Brasil`
+- Seja criativo e escolha destinos diversos do Brasil
+- Para localCuisine, forneça 4-5 pratos/bebidas típicas com nome, descrição detalhada e imageUrl`
 
 	reqBody := models.AIRequest{
 		Model: "llama-3.3-70b-versatile",

@@ -16,7 +16,7 @@ type Destination struct {
 	Budget          Budget       `json:"budget"`
 	Transportation  string       `json:"transportation"`
 	Accommodation   string       `json:"accommodation"`
-	LocalCuisine    []string     `json:"localCuisine"`
+	LocalCuisine    []CuisineDish `json:"localCuisine"`
 	Date            time.Time    `json:"date"`
 }
 
@@ -31,6 +31,12 @@ type Budget struct {
 	Low    string `json:"low"`
 	Medium string `json:"medium"`
 	High   string `json:"high"`
+}
+
+type CuisineDish struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	ImageURL    string `json:"imageUrl"`
 }
 
 type AIRequest struct {

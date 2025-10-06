@@ -143,7 +143,7 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
         {destination.localCuisine && destination.localCuisine.length > 0 && (
           <div className="section">
             <h3 className="section-title">🍽️ Gastronomia Local</h3>
-            <CuisineDropdown dishes={destination.localCuisine} destinationName={destination.name} />
+            <CuisineDropdown dishes={destination.localCuisine} />
           </div>
         )}
 

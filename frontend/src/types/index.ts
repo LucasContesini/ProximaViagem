@@ -11,6 +11,12 @@ export interface Budget {
   high: string;
 }
 
+export interface CuisineDish {
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
 export interface Destination {
   id: string;
   name: string;
@@ -25,7 +31,7 @@ export interface Destination {
   budget: Budget;
   transportation: string;
   accommodation: string;
-  localCuisine: string[];
+  localCuisine: CuisineDish[];
   date: string;
 }
 
