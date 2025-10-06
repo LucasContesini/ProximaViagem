@@ -263,6 +263,9 @@
   font-size: 0.9rem;
   color: #666;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 /* Budget Section */
