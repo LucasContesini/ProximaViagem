@@ -80,7 +80,7 @@ func (h *Handler) GetAllDestinations(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(destinations)
 }
 
-// GetRandomDestination retorna um destino aleatório do cache
+// GetRandomDestination retorna um destino aleatório do cache ou gera um novo
 func (h *Handler) GetRandomDestination(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -92,7 +92,17 @@ func (h *Handler) GetRandomDestination(w http.ResponseWriter, r *http.Request) {
 		// Se não tem nada em cache, pega o destino do dia
 		destination, found := h.cache.Get()
 		if !found {
-			http.Error(w, "No destinations available", http.StatusNotFound)
+			// Se também não tem destino do dia, gera um novo
+			log.Println("No destinations in cache, generating new one for random endpoint")
+			newDestination, err := h.aiClient.GetDailyDestination()
+			if err != nil {
+				log.Printf("Error fetching destination: %v", err)
+				http.Error(w, "Error fetching destination", http.StatusInternalServerError)
+				return
+			}
+			h.cache.Set(newDestination)
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(newDestination)
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
