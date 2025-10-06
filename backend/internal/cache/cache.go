@@ -44,3 +44,10 @@ func (c *Cache) Set(destination *models.Destination) {
 	c.lastUpdate = time.Now()
 }
 
+func (c *Cache) Clear() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	c.destination = nil
+	c.lastUpdate = time.Time{}
+}

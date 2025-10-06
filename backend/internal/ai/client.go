@@ -48,28 +48,100 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
 {
   "name": "Nome da cidade",
   "country": "Brasil",
-  "description": "Descrição atraente do destino em 2-3 frases",
+  "description": "Descrição atraente e envolvente do destino em 3-4 frases",
+  "detailedInfo": "Informação detalhada sobre o destino, sua história, cultura, características únicas e o que torna esse lugar especial. Mínimo 4-5 frases bem elaboradas.",
   "imageUrl": "https://images.unsplash.com/photo-exemplo?w=800",
-  "tips": ["Dica 1", "Dica 2", "Dica 3"],
-  "attractions": ["Atração 1", "Atração 2", "Atração 3"],
-  "bestTime": "Melhor época para visitar"
+  "images": [
+    "https://images.unsplash.com/photo-1?w=800",
+    "https://images.unsplash.com/photo-2?w=800",
+    "https://images.unsplash.com/photo-3?w=800",
+    "https://images.unsplash.com/photo-4?w=800"
+  ],
+  "tips": [
+    "Dica detalhada 1 com informações práticas e úteis",
+    "Dica detalhada 2 sobre segurança ou economia",
+    "Dica detalhada 3 sobre cultura local",
+    "Dica detalhada 4 sobre transporte ou locomoção",
+    "Dica detalhada 5 sobre o que evitar",
+    "Dica detalhada 6 sobre melhores horários para visitar"
+  ],
+  "attractions": [
+    {
+      "name": "Nome da Atração 1",
+      "description": "Descrição detalhada da atração, o que fazer lá, por que visitar",
+      "duration": "Tempo recomendado de visita",
+      "price": "Faixa de preço (Grátis/R$ 10-50/R$ 50-100/etc)"
+    },
+    {
+      "name": "Nome da Atração 2",
+      "description": "Descrição detalhada da atração",
+      "duration": "Tempo recomendado",
+      "price": "Faixa de preço"
+    },
+    {
+      "name": "Nome da Atração 3",
+      "description": "Descrição detalhada",
+      "duration": "Tempo recomendado",
+      "price": "Faixa de preço"
+    },
+    {
+      "name": "Nome da Atração 4",
+      "description": "Descrição detalhada",
+      "duration": "Tempo recomendado",
+      "price": "Faixa de preço"
+    },
+    {
+      "name": "Nome da Atração 5",
+      "description": "Descrição detalhada",
+      "duration": "Tempo recomendado",
+      "price": "Faixa de preço"
+    },
+    {
+      "name": "Nome da Atração 6",
+      "description": "Descrição detalhada",
+      "duration": "Tempo recomendado",
+      "price": "Faixa de preço"
+    }
+  ],
+  "bestTime": "Melhor época para visitar com detalhes sobre clima e eventos",
+  "budget": {
+    "low": "Orçamento econômico: R$ X-Y por dia (descrição do que inclui)",
+    "medium": "Orçamento médio: R$ X-Y por dia (descrição do que inclui)",
+    "high": "Orçamento confortável: R$ X-Y por dia (descrição do que inclui)"
+  },
+  "transportation": "Informações detalhadas sobre como chegar e se locomover no destino, incluindo opções de transporte público, táxi, uber, aluguel de carro, etc.",
+  "accommodation": "Sugestões de onde se hospedar, bairros recomendados, tipos de acomodação disponíveis (hotéis, pousadas, hostels, airbnb) com faixas de preço",
+  "localCuisine": [
+    "Prato típico 1 - breve descrição",
+    "Prato típico 2 - breve descrição",
+    "Prato típico 3 - breve descrição",
+    "Prato típico 4 - breve descrição",
+    "Bebida típica - breve descrição"
+  ]
 }
 
-IMPORTANTE: Escolha APENAS destinos turísticos brasileiros (cidades, praias, parques nacionais, etc). Use URLs reais do Unsplash relacionadas ao destino brasileiro. Seja criativo e escolha destinos variados do Brasil.`
+IMPORTANTE: 
+- Escolha APENAS destinos turísticos brasileiros variados (cidades históricas, praias, montanhas, parques nacionais, capitais, cidades do interior)
+- Use URLs reais do Unsplash relacionadas especificamente ao destino brasileiro escolhido
+- Seja MUITO detalhado e informativo em todas as descrições
+- Forneça informações práticas e úteis que realmente ajudem o viajante
+- Inclua pelo menos 6 atrações diferentes e bem descritas
+- Dê dicas específicas e relevantes para aquele destino
+- Seja criativo e escolha destinos diversos do Brasil`
 
 	reqBody := models.AIRequest{
 		Model: "llama-3.3-70b-versatile",
 		Messages: []models.AIMessage{
 			{
 				Role:    "system",
-				Content: "Você é um especialista em turismo que sugere destinos incríveis ao redor do mundo. Sempre responda em JSON válido.",
+				Content: "Você é um especialista em turismo brasileiro com conhecimento profundo sobre destinos, cultura, gastronomia e dicas práticas de viagem. Sempre responda em JSON válido com informações detalhadas e úteis.",
 			},
 			{
 				Role:    "user",
 				Content: prompt,
 			},
 		},
-		MaxTokens: 1000,
+		MaxTokens: 3000,
 	}
 
 	jsonData, err := json.Marshal(reqBody)

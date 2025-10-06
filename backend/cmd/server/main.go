@@ -29,8 +29,10 @@ func main() {
 	handler := api.NewHandler(cacheInstance, aiClient)
 
 	r := mux.NewRouter()
-	r.HandleFunc("/api/destination", handler.GetDailyDestination).Methods("GET")
+	r.HandleFunc("/api/destination", handler.GetTestDestination).Methods("GET")
+	r.HandleFunc("/api/destination/real", handler.GetDailyDestination).Methods("GET")
 	r.HandleFunc("/api/health", handler.HealthCheck).Methods("GET")
+	r.HandleFunc("/api/cache/clear", handler.ClearCache).Methods("POST")
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
@@ -46,4 +48,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
