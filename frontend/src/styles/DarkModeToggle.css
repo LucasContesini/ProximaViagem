@@ -107,14 +107,26 @@
 /* Melhor contraste para seções de transporte e hospedagem */
 .dark-mode .section p,
 .dark-mode .section .detailed-text,
-.dark-mode .section .info-text {
-  color: #f7fafc;
+.dark-mode .section .info-text,
+.dark-mode .detailed-info .detailed-text {
+  color: #f7fafc !important;
   line-height: 1.8;
 }
 
 .dark-mode .section strong {
   color: #ffffff;
   font-weight: 600;
+}
+
+/* Garantir que detailed-info seja legível no dark mode */
+.dark-mode .detailed-info {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .detailed-info p,
+.dark-mode .detailed-info .detailed-text {
+  color: #f7fafc !important;
 }
 
 .dark-mode .share-buttons {
