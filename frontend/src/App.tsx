@@ -10,21 +10,15 @@ import { DarkModeToggle } from './components/DarkModeToggle';
 import { RandomDestination } from './components/RandomDestination';
 import { LanguageToggle } from './components/LanguageToggle';
 import { useDestination } from './hooks/useDestination';
-import { Language } from './i18n/translations';
 import './styles/App.css';
 
 function App() {
   const { destination, loading, error, updateDestination } = useDestination();
-  
-  const handleLanguageChange = (lang: Language) => {
-    console.log('Language changed to:', lang);
-    // O componente LanguageToggle já gerencia o localStorage
-  };
 
   return (
     <div className="app">
       <DarkModeToggle />
-      <LanguageToggle onLanguageChange={handleLanguageChange} />
+      <LanguageToggle />
       <InstallPWA />
       <RandomDestination onRandomSelect={updateDestination} />
       <FavoritesList onSelectDestination={updateDestination} />

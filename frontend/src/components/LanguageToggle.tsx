@@ -1,45 +1,26 @@
-import { useState, useEffect } from 'react';
-import { Language } from '../i18n/translations';
+import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/LanguageToggle.css';
 
-interface LanguageToggleProps {
-  onLanguageChange: (lang: Language) => void;
-}
-
-export const LanguageToggle: React.FC<LanguageToggleProps> = ({ onLanguageChange }) => {
-  const [currentLang, setCurrentLang] = useState<Language>('pt');
-
-  useEffect(() => {
-    const saved = localStorage.getItem('language') as Language;
-    if (saved) {
-      setCurrentLang(saved);
-      onLanguageChange(saved);
-    }
-  }, [onLanguageChange]);
-
-  const changeLang = (lang: Language) => {
-    setCurrentLang(lang);
-    localStorage.setItem('language', lang);
-    onLanguageChange(lang);
-  };
+export const LanguageToggle: React.FC = () => {
+  const { language, setLanguage } = useLanguage();
 
   return (
     <div className="language-toggle">
       <button
-        className={`lang-btn ${currentLang === 'pt' ? 'active' : ''}`}
-        onClick={() => changeLang('pt')}
+        className={`lang-btn ${language === 'pt' ? 'active' : ''}`}
+        onClick={() => setLanguage('pt')}
       >
         🇧🇷 PT
       </button>
       <button
-        className={`lang-btn ${currentLang === 'en' ? 'active' : ''}`}
-        onClick={() => changeLang('en')}
+        className={`lang-btn ${language === 'en' ? 'active' : ''}`}
+        onClick={() => setLanguage('en')}
       >
         🇺🇸 EN
       </button>
       <button
-        className={`lang-btn ${currentLang === 'es' ? 'active' : ''}`}
-        onClick={() => changeLang('es')}
+        className={`lang-btn ${language === 'es' ? 'active' : ''}`}
+        onClick={() => setLanguage('es')}
       >
         🇪🇸 ES
       </button>
