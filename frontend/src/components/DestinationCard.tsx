@@ -3,7 +3,6 @@ import { Destination } from '../types';
 import { ShareButtons } from './ShareButtons';
 import { FavoriteButton } from './FavoriteButton';
 import { MapButton } from './MapButton';
-import { ImageGallery } from './ImageGallery';
 import { CuisineDropdown } from './CuisineDropdown';
 import '../styles/DestinationCard.css';
 
@@ -62,10 +61,6 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
       </div>
       
       <div className="card-content">
-        {destination.images && destination.images.length > 1 && (
-          <ImageGallery images={destination.images} name={destination.name} />
-        )}
-        
         <div className="section">
           <p className="description">{destination.description}</p>
         </div>
