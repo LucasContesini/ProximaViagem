@@ -2,7 +2,6 @@ import { Header } from './components/Header';
 import { DestinationCard } from './components/DestinationCard';
 import { Loading } from './components/Loading';
 import { Error } from './components/Error';
-import { AdBanner } from './components/AdBanner';
 import { InstallPWA } from './components/InstallPWA';
 import { DestinationHistory } from './components/DestinationHistory';
 import { FavoritesList } from './components/FavoritesList';
@@ -26,17 +25,11 @@ function App() {
       <Header />
       
       <main className="main-content">
-        {/* Ad Banner Top */}
-        <AdBanner slot="1234567890" format="horizontal" />
-        
         <div className="content-wrapper">
           {loading && <Loading />}
           {error && <Error message={error} />}
           {destination && <DestinationCard destination={destination} />}
         </div>
-        
-        {/* Ad Banner Bottom */}
-        {destination && <AdBanner slot="0987654321" format="horizontal" />}
       </main>
       
       <footer className="footer">
