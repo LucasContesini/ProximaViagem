@@ -3,6 +3,23 @@ import { Destination } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/RandomDestination.css';
 
+// Função para converter dados antigos para o novo formato
+const convertLegacyCuisine = (cuisine: any): string[] => {
+  if (!cuisine || !Array.isArray(cuisine)) {
+    return [];
+  }
+  
+  return cuisine.map((item: any) => {
+    if (typeof item === 'string') {
+      return item;
+    }
+    if (typeof item === 'object' && item.name) {
+      return item.name;
+    }
+    return String(item);
+  });
+};
+
 interface RandomDestinationProps {
   onRandomSelect: (destination: Destination) => void;
 }
@@ -358,6 +375,10 @@ export const RandomDestination: React.FC<RandomDestinationProps> = ({ onRandomSe
         
         if (response.ok) {
           const destination = await response.json();
+          // Converter dados antigos para novo formato
+          if (destination.localCuisine) {
+            destination.localCuisine = convertLegacyCuisine(destination.localCuisine);
+          }
           console.log('✅ Destino aleatório do backend carregado');
           onRandomSelect(destination);
           return;

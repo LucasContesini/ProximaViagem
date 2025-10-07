@@ -1,5 +1,22 @@
 import { Destination } from '../types';
 
+// Função para converter dados antigos para o novo formato
+const convertLegacyCuisine = (cuisine: any): string[] => {
+  if (!cuisine || !Array.isArray(cuisine)) {
+    return [];
+  }
+  
+  return cuisine.map((item: any) => {
+    if (typeof item === 'string') {
+      return item;
+    }
+    if (typeof item === 'object' && item.name) {
+      return item.name;
+    }
+    return String(item);
+  });
+};
+
 // URL do backend - sempre usar Netlify proxy em produção
 const API_URL = '';
 
@@ -249,6 +266,10 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
+        // Converter dados antigos para novo formato
+        if (data.localCuisine) {
+          data.localCuisine = convertLegacyCuisine(data.localCuisine);
+        }
         console.log('✅ Backend online - dados da IA');
         return data;
       } else {
@@ -272,6 +293,10 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
       const contentType = fallbackResponse.headers.get('content-type');
       if (contentType && contentType.includes('application/json')) {
         const data = await fallbackResponse.json();
+        // Converter dados antigos para novo formato
+        if (data.localCuisine) {
+          data.localCuisine = convertLegacyCuisine(data.localCuisine);
+        }
         console.log('✅ Fallback do backend funcionando');
         return data;
       } else {
