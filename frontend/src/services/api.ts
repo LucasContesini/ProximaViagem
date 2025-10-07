@@ -9,41 +9,17 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
   const language = localStorage.getItem('language') || 'pt';
   const acceptLanguage = language === 'en' ? 'en' : language === 'es' ? 'es' : 'pt';
 
-  try {
-    // Tentar primeiro o endpoint principal
-    const response = await fetch(`${API_URL}/api/destination`, {
-      headers: {
-        'Accept-Language': acceptLanguage
-      }
-    });
-    
-    if (response.ok) {
-      return response.json();
+  // Usar sempre o endpoint de teste por enquanto (tem internacionalização e funciona)
+  console.log('Usando endpoint de teste com internacionalização');
+  const testResponse = await fetch(`${API_URL}/api/destination/test`, {
+    headers: {
+      'Accept-Language': acceptLanguage
     }
-    
-    // Se der erro, tenta o endpoint de teste
-    console.log('API principal falhou, usando destino de teste');
-    const testResponse = await fetch(`${API_URL}/api/destination/test`, {
-      headers: {
-        'Accept-Language': acceptLanguage
-      }
-    });
-    if (testResponse.ok) {
-      return testResponse.json();
-    }
-    throw new Error('Failed to fetch destination');
-    
-  } catch (error) {
-    // Fallback para endpoint de teste
-    console.error('Erro na API, tentando endpoint de teste:', error);
-    const testResponse = await fetch(`${API_URL}/api/destination/test`, {
-      headers: {
-        'Accept-Language': acceptLanguage
-      }
-    });
-    if (testResponse.ok) {
-      return testResponse.json();
-    }
-    throw error;
+  });
+  
+  if (testResponse.ok) {
+    return testResponse.json();
   }
+  
+  throw new Error('Failed to fetch test destination');
 };
