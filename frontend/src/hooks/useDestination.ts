@@ -6,10 +6,6 @@ export const useDestination = () => {
   const [destination, setDestination] = useState<Destination | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [backendStatus, setBackendStatus] = useState<{ isOnline: boolean; lastUpdate: Date | null }>({
-    isOnline: false,
-    lastUpdate: null
-  });
 
   useEffect(() => {
     const loadDestination = async () => {
@@ -18,10 +14,6 @@ export const useDestination = () => {
         const data = await fetchDailyDestination();
         setDestination(data);
         setError(null);
-        setBackendStatus({
-          isOnline: !data.id.includes('static'),
-          lastUpdate: new Date()
-        });
         
         // Salvar no histórico
         saveToHistory(data);
@@ -46,10 +38,6 @@ export const useDestination = () => {
             const data = await fetchDailyDestination();
             setDestination(data);
             setError(null);
-            setBackendStatus({
-              isOnline: !data.id.includes('static'),
-              lastUpdate: new Date()
-            });
           } catch (err) {
             console.error('Erro ao recarregar destino:', err);
           } finally {
@@ -101,31 +89,11 @@ export const useDestination = () => {
     setDestination(newDestination);
   };
 
-  const refreshDestination = async () => {
-    try {
-      setLoading(true);
-      const data = await fetchDailyDestination();
-      setDestination(data);
-      setError(null);
-      setBackendStatus({
-        isOnline: !data.id.includes('static'),
-        lastUpdate: new Date()
-      });
-    } catch (err) {
-      setError('Erro ao atualizar destino.');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return { 
     destination, 
     loading, 
     error, 
-    updateDestination, 
-    refreshDestination,
-    backendStatus 
+    updateDestination
   };
 };
 
