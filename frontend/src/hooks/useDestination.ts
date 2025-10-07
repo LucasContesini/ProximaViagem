@@ -11,10 +11,12 @@ const getEmergencyDestination = (): Destination => ({
   detailedInfo: "Fundada por imigrantes alemães e italianos, Gramado preserva tradições europeias em sua arquitetura, gastronomia e cultura. A cidade é famosa por seus festivais, como o Natal Luz.",
   imageUrl: "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800",
   images: [
-    "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800",
-    "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800",
-    "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800",
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+    "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800&q=80", // Gramado centro histórico
+    "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800&q=80", // Lago Negro
+    "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80", // Mini Mundo
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // Rua Coberta
+    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80", // Snowland
+    "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80"  // Natal Luz
   ],
   tips: [
     "Reserve hotéis com antecedência durante o Natal Luz",
@@ -83,15 +85,32 @@ const getEmergencyDestination = (): Destination => ({
 export const useDestination = () => {
   const [destination, setDestination] = useState<Destination | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showFallback, setShowFallback] = useState(false);
 
   useEffect(() => {
     const loadDestination = async () => {
       try {
         setLoading(true);
-        // Sempre garantir que não há erro
+        setShowFallback(false);
         
+        // Timer para mostrar fallback após 5 segundos
+        const fallbackTimer = setTimeout(() => {
+          if (loading) {
+            console.log('⏰ Mostrando fallback após 5 segundos...');
+            setShowFallback(true);
+            const emergencyData = getEmergencyDestination();
+            setDestination(emergencyData);
+            saveToHistory(emergencyData);
+          }
+        }, 5000);
+        
+        // Sempre garantir que não há erro
         const data = await fetchDailyDestination();
+        
+        // Se chegou aqui, a API respondeu - cancelar o timer e atualizar com dados reais
+        clearTimeout(fallbackTimer);
         setDestination(data);
+        setShowFallback(false);
         
         // Salvar no histórico
         saveToHistory(data);
@@ -103,12 +122,14 @@ export const useDestination = () => {
         try {
           const fallbackData = await fetchDailyDestination();
           setDestination(fallbackData);
+          setShowFallback(false);
           saveToHistory(fallbackData);
         } catch (fallbackErr) {
           // Se até o fallback falhar, usar dados estáticos locais
           console.log('🎲 Usando dados estáticos de emergência');
           const emergencyData = getEmergencyDestination();
           setDestination(emergencyData);
+          setShowFallback(true);
           saveToHistory(emergencyData);
         }
       } finally {
@@ -196,6 +217,7 @@ export const useDestination = () => {
     destination, 
     loading, 
     error: null, // NUNCA retornar erro - sempre usar fallback
+    showFallback,
     updateDestination
   };
 };

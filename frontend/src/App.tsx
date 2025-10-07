@@ -12,7 +12,7 @@ import { useDestination } from './hooks/useDestination';
 import './styles/App.css';
 
 function App() {
-  const { destination, loading, error, updateDestination } = useDestination();
+  const { destination, loading, error, showFallback, updateDestination } = useDestination();
 
   return (
     <div className="app">
@@ -30,7 +30,14 @@ function App() {
               {loading && <Loading />}
               {error && <Error message={error} />}
               {destination && (
-                <DestinationCard destination={destination} />
+                <>
+                  {showFallback && (
+                    <div className="fallback-notice">
+                      <p>📡 Carregando dados atualizados...</p>
+                    </div>
+                  )}
+                  <DestinationCard destination={destination} />
+                </>
               )}
             </div>
           </main>

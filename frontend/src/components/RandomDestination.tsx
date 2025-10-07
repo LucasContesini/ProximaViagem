@@ -37,10 +37,12 @@ const RANDOM_FALLBACK_DESTINATIONS: Destination[] = [
     detailedInfo: "Fundada por imigrantes alemães e italianos, Gramado preserva tradições europeias em sua arquitetura, gastronomia e cultura. A cidade é famosa por seus festivais, como o Natal Luz, que atrai milhares de visitantes todos os anos.",
     imageUrl: "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800",
     images: [
-      "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800",
-      "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800",
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800&q=80", // Gramado centro histórico
+      "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800&q=80", // Lago Negro
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80", // Mini Mundo
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // Rua Coberta
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80", // Snowland
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80"  // Natal Luz
     ],
     tips: [
       "Reserve hotéis com antecedência durante o Natal Luz",
@@ -113,10 +115,12 @@ const RANDOM_FALLBACK_DESTINATIONS: Destination[] = [
     detailedInfo: "Fernando de Noronha é um arquipélago brasileiro no Oceano Atlântico, conhecido por suas praias paradisíacas, águas cristalinas e rica vida marinha. É um destino de ecoturismo e mergulho de classe mundial, com mais de 70% do território protegido como Parque Nacional Marinho.",
     imageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
     images: [
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800",
-      "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800",
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800"
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80", // Baía do Sancho
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80", // Praia paradisíaca
+      "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&q=80", // Mergulho
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80", // Vida marinha
+      "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800&q=80", // Pôr do sol
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80"  // Paisagem costeira
     ],
     tips: [
       "Reserve com muita antecedência (até 6 meses)",
@@ -189,10 +193,12 @@ const RANDOM_FALLBACK_DESTINATIONS: Destination[] = [
     detailedInfo: "Bonito é um município do Mato Grosso do Sul famoso por suas águas cristalinas, grutas calcárias e cachoeiras. É considerado um dos melhores destinos de ecoturismo do mundo, com atividades sustentáveis e preservação ambiental exemplar.",
     imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800",
     images: [
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800",
-      "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800",
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800",
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800"
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80", // Rio cristalino
+      "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&q=80", // Gruta do Lago Azul
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80", // Flutuação
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80", // Cachoeira
+      "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800&q=80", // Buraco das Araras
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80"  // Paisagem pantaneira
     ],
     tips: [
       "Reserve passeios com antecedência",
@@ -265,10 +271,12 @@ const RANDOM_FALLBACK_DESTINATIONS: Destination[] = [
     detailedInfo: "Paraty é uma cidade histórica do Rio de Janeiro, fundada em 1667, conhecida por sua arquitetura colonial preservada, praias paradisíacas e produção de cachaça artesanal. É Patrimônio Mundial da UNESCO e um dos destinos mais charmosos do Brasil.",
     imageUrl: "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800",
     images: [
-      "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800",
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
-      "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800"
+      "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800&q=80", // Centro histórico
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80", // Praia do Sono
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // Ilha do Pelado
+      "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800&q=80", // Cachoeira do Tobogã
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80", // Passeio de barco
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80"  // Pôr do sol na baía
     ],
     tips: [
       "Caminhe descalço no centro histórico",
@@ -360,6 +368,9 @@ export const RandomDestination: React.FC<RandomDestinationProps> = ({ onRandomSe
   const getRandomDestination = async () => {
     setLoading(true);
     
+    // Scroll para o início da página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     try {
       // Obter idioma do localStorage
       const language = localStorage.getItem('language') || 'pt';
@@ -369,12 +380,12 @@ export const RandomDestination: React.FC<RandomDestinationProps> = ({ onRandomSe
         'Accept-Language': acceptLanguage
       };
 
-      // NÍVEL 1: Tentar endpoint de destino aleatório do backend - 10 segundos timeout
+      // NÍVEL 1: Tentar endpoint de destino aleatório do backend - 5 segundos timeout
       try {
         console.log('🎲 Tentando API de destino aleatório...');
         const response = await fetchWithTimeout('/api/destination/random', {
           headers
-        }, 10000);
+        }, 5000);
         
         if (response.ok) {
           const destination = await response.json();

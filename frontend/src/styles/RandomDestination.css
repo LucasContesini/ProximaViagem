@@ -1,6 +1,6 @@
 .random-button {
   position: fixed;
-  bottom: 160px;
+  top: 70px;
   right: 20px;
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
@@ -27,7 +27,7 @@
 
 @media (max-width: 768px) {
   .random-button {
-    bottom: 150px;
+    top: 60px;
     right: 15px;
     padding: 0.75rem 1.25rem;
     font-size: 0.9rem;
