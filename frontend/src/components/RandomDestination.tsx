@@ -368,8 +368,10 @@ export const RandomDestination: React.FC<RandomDestinationProps> = ({ onRandomSe
   const getRandomDestination = async () => {
     setLoading(true);
     
-    // Scroll para o início da página
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll para o início da página com pequeno delay para garantir que o estado foi atualizado
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
     
     try {
       // Obter idioma do localStorage
