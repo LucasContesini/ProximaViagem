@@ -160,23 +160,23 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
 
             {/* Seção de conteúdo adicional para SEO e AdSense */}
             <div className="section additional-content">
-              <h3 className="section-title">📚 {t.sections.additionalInfo || 'Informações Adicionais'}</h3>
+              <h3 className="section-title">📚 Informações Adicionais</h3>
               <div className="content-grid">
                 <div className="content-item">
-                  <h4>🌍 {t.sections.climate || 'Clima'}</h4>
-                  <p>{destination.climate || 'Clima tropical com temperaturas agradáveis durante todo o ano.'}</p>
+                  <h4>🌍 Clima</h4>
+                  <p>Clima tropical com temperaturas agradáveis durante todo o ano.</p>
                 </div>
                 <div className="content-item">
-                  <h4>🎒 {t.sections.whatToPack || 'O que Levar'}</h4>
-                  <p>{destination.whatToPack || 'Roupas leves, protetor solar, câmera e disposição para aventuras!'}</p>
+                  <h4>🎒 O que Levar</h4>
+                  <p>Roupas leves, protetor solar, câmera e disposição para aventuras!</p>
                 </div>
                 <div className="content-item">
-                  <h4>📱 {t.sections.connectivity || 'Conectividade'}</h4>
-                  <p>{destination.connectivity || 'Cobertura de internet disponível na maioria das áreas urbanas.'}</p>
+                  <h4>📱 Conectividade</h4>
+                  <p>Cobertura de internet disponível na maioria das áreas urbanas.</p>
                 </div>
                 <div className="content-item">
-                  <h4>🏥 {t.sections.health || 'Saúde'}</h4>
-                  <p>{destination.health || 'Consulte seu médico antes de viajar e leve um kit básico de primeiros socorros.'}</p>
+                  <h4>🏥 Saúde</h4>
+                  <p>Consulte seu médico antes de viajar e leve um kit básico de primeiros socorros.</p>
                 </div>
               </div>
             </div>

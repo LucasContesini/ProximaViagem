@@ -52,12 +52,12 @@ export const useDestination = () => {
     window.addEventListener('storage', handleLanguageChange);
     
     // Escutar mudanças no mesmo tab
-    const interval = setInterval(() => {
-      const currentLang = localStorage.getItem('language');
-      if (currentLang && currentLang !== destination?.language) {
-        handleLanguageChange();
-      }
-    }, 1000);
+        const interval = setInterval(() => {
+          const currentLang = localStorage.getItem('language');
+          if (currentLang && currentLang !== 'pt') {
+            handleLanguageChange();
+          }
+        }, 1000);
 
     return () => {
       window.removeEventListener('storage', handleLanguageChange);
