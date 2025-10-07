@@ -25,7 +25,7 @@ export interface Destination {
   budget: Budget;
   transportation: string;
   accommodation: string;
-  localCuisine: string[]; // Apenas strings simples
+  localCuisine: { name: string; description: string; }[]; // Nome e descrição dos pratos
   date: string;
 }
 

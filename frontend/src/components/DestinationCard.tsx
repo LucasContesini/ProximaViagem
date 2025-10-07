@@ -147,7 +147,8 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
             <ul className="cuisine-list">
               {destination.localCuisine.map((dish, index) => (
                 <li key={index} className="cuisine-item">
-                  {dish}
+                  <div className="dish-name">{dish.name}</div>
+                  <div className="dish-description">{dish.description}</div>
                 </li>
               ))}
             </ul>

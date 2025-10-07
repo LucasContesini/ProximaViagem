@@ -1,19 +1,22 @@
 import { Destination } from '../types';
 
 // Função para converter dados antigos para o novo formato
-const convertLegacyCuisine = (cuisine: any): string[] => {
+const convertLegacyCuisine = (cuisine: any): { name: string; description: string; }[] => {
   if (!cuisine || !Array.isArray(cuisine)) {
     return [];
   }
   
   return cuisine.map((item: any) => {
     if (typeof item === 'string') {
-      return item;
+      return { name: item, description: `Delicioso prato típico da região` };
     }
     if (typeof item === 'object' && item.name) {
-      return item.name;
+      return { 
+        name: item.name, 
+        description: item.description || `Delicioso prato típico da região` 
+      };
     }
-    return String(item);
+    return { name: String(item), description: `Delicioso prato típico da região` };
   });
 };
 
@@ -90,11 +93,11 @@ const FALLBACK_DESTINATIONS: Destination[] = [
     transportation: "De avião: voe para Porto Alegre e alugue um carro. Na cidade, é possível caminhar pelo centro.",
     accommodation: "Centro, Planalto ou Carniel. Hotéis boutique, pousadas ou Airbnb em chalés.",
     localCuisine: [
-      "Fondue - tradicional suíço com queijo ou chocolate",
-      "Galeto al primo canto - frango assado na brasa",
-      "Apfelstrudel - torta de maçã alemã",
-      "Sequência de café colonial",
-      "Vinho e espumante da Serra Gaúcha"
+      { name: "Fondue", description: "Tradicional suíço com queijo ou chocolate, perfeito para noites frias" },
+      { name: "Galeto al primo canto", description: "Frango assado na brasa, especialidade da região" },
+      { name: "Apfelstrudel", description: "Torta de maçã alemã com canela, herança dos colonizadores" },
+      { name: "Sequência de café colonial", description: "Variedade de pães, bolos e frios típicos" },
+      { name: "Vinho e espumante", description: "Produção local da Serra Gaúcha, reconhecida mundialmente" }
     ],
     date: new Date().toISOString()
   },
@@ -154,11 +157,11 @@ const FALLBACK_DESTINATIONS: Destination[] = [
     transportation: "Voo de Recife ou Natal. Na ilha, use buggy ou bicicleta.",
     accommodation: "Pousadas na Vila dos Remédios ou Sueste.",
     localCuisine: [
-      "Frutos do mar frescos",
-      "Tapioca com coco",
-      "Açaí na tigela",
-      "Peixe grelhado",
-      "Camarão na moranga"
+      { name: "Frutos do mar frescos", description: "Peixes, lagostas e camarões pescados diariamente" },
+      { name: "Tapioca com coco", description: "Tradicional tapioca nordestina com coco fresco" },
+      { name: "Açaí na tigela", description: "Açaí cremoso servido com frutas e granola" },
+      { name: "Peixe grelhado", description: "Peixes locais grelhados com temperos regionais" },
+      { name: "Camarão na moranga", description: "Camarões refogados servidos dentro de uma moranga" }
     ],
     date: new Date().toISOString()
   },
@@ -218,11 +221,11 @@ const FALLBACK_DESTINATIONS: Destination[] = [
     transportation: "Voo para Campo Grande + transfer (4h) ou carro alugado.",
     accommodation: "Pousadas no centro ou fazendas ecológicas.",
     localCuisine: [
-      "Peixe pantaneiro",
-      "Carne de jacaré",
-      "Pintado na telha",
-      "Pacu assado",
-      "Doce de leite artesanal"
+      { name: "Peixe pantaneiro", description: "Peixes de água doce do Pantanal preparados de forma tradicional" },
+      { name: "Carne de jacaré", description: "Especialidade regional, carne macia e saborosa" },
+      { name: "Pintado na telha", description: "Peixe pintado assado em telha de barro" },
+      { name: "Pacu assado", description: "Peixe pacu grelhado com temperos locais" },
+      { name: "Doce de leite artesanal", description: "Doce de leite caseiro produzido localmente" }
     ],
     date: new Date().toISOString()
   }

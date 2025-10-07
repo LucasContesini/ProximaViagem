@@ -70,11 +70,11 @@ const FALLBACK_DESTINATIONS: Destination[] = [
     transportation: "De avião: voe para Porto Alegre e alugue um carro. Na cidade, é possível caminhar pelo centro.",
     accommodation: "Centro, Planalto ou Carniel. Hotéis boutique, pousadas ou Airbnb em chalés.",
     localCuisine: [
-      "Fondue - tradicional suíço com queijo ou chocolate",
-      "Galeto al primo canto - frango assado na brasa",
-      "Apfelstrudel - torta de maçã alemã",
-      "Sequência de café colonial",
-      "Vinho e espumante da Serra Gaúcha"
+      { name: "Fondue", description: "Tradicional suíço com queijo ou chocolate, perfeito para noites frias" },
+      { name: "Galeto al primo canto", description: "Frango assado na brasa, especialidade da região" },
+      { name: "Apfelstrudel", description: "Torta de maçã alemã com canela, herança dos colonizadores" },
+      { name: "Sequência de café colonial", description: "Variedade de pães, bolos e frios típicos" },
+      { name: "Vinho e espumante", description: "Produção local da Serra Gaúcha, reconhecida mundialmente" }
     ],
     date: new Date().toISOString()
   },
@@ -127,11 +127,11 @@ const FALLBACK_DESTINATIONS: Destination[] = [
     transportation: "De carro: 2h30 do Rio de Janeiro. De ônibus: várias linhas diárias.",
     accommodation: "Centro, Manguinhos ou João Fernandes. Pousadas charmosas e hotéis boutique.",
     localCuisine: [
-      "Frutos do mar frescos",
-      "Caipirinha de frutas tropicais",
-      "Açaí na tigela",
-      "Camarão na moranga",
-      "Moqueca de peixe"
+      { name: "Frutos do mar frescos", description: "Peixes, lagostas e camarões pescados diariamente" },
+      { name: "Caipirinha de frutas tropicais", description: "Caipirinha preparada com frutas locais frescas" },
+      { name: "Açaí na tigela", description: "Açaí cremoso servido com frutas e granola" },
+      { name: "Camarão na moranga", description: "Camarões refogados servidos dentro de uma moranga" },
+      { name: "Moqueca de peixe", description: "Moqueca tradicional com peixes locais e leite de coco" }
     ],
     date: new Date().toISOString()
   }
