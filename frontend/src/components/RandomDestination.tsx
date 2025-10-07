@@ -27,12 +27,13 @@ export const RandomDestination: React.FC<RandomDestinationProps> = ({ onRandomSe
 
     // Se backend offline, gerar destino aleatório local
     try {
-      const fallbackDestinations = [
+      const fallbackDestinations: Destination[] = [
         {
           id: `dest-random-${Date.now()}`,
           name: "Fernando de Noronha",
           country: "Brasil",
           description: "Arquipélago paradisíaco com praias de águas cristalinas e vida marinha exuberante.",
+          detailedInfo: "Fernando de Noronha é um arquipélago brasileiro no Oceano Atlântico, conhecido por suas praias paradisíacas, águas cristalinas e rica vida marinha. É um destino de ecoturismo e mergulho de classe mundial.",
           imageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
           images: ["https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800"],
           tips: ["Reserve com antecedência", "Leve protetor solar", "Faça mergulho"],

@@ -142,7 +142,7 @@ class CacheService {
   private currentDestination: Destination | null = null;
   private lastUpdate: Date | null = null;
   private isBackendOnline: boolean = false;
-  private pollingInterval: NodeJS.Timeout | null = null;
+  private pollingInterval: number | null = null;
   private readonly CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 horas
   private readonly POLLING_INTERVAL = 30 * 1000; // 30 segundos
   private readonly BACKEND_TIMEOUT = 10 * 1000; // 10 segundos
@@ -234,7 +234,7 @@ class CacheService {
     if (this.pollingInterval) return;
 
     console.log('🔄 Iniciando polling do backend...');
-    this.pollingInterval = setInterval(async () => {
+    this.pollingInterval = window.setInterval(async () => {
       if (this.isBackendOnline) {
         console.log('✅ Backend já online - parando polling');
         this.stopPolling();
@@ -258,7 +258,7 @@ class CacheService {
 
   private stopPolling(): void {
     if (this.pollingInterval) {
-      clearInterval(this.pollingInterval);
+      window.clearInterval(this.pollingInterval);
       this.pollingInterval = null;
       console.log('⏹️ Polling parado');
     }
