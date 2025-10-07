@@ -1,7 +1,7 @@
 import { Destination } from '../types';
 
 // URL do backend - Netlify proxy em produção, localhost em desenvolvimento
-const API_URL = import.meta.env.PROD ? '' : 'http://localhost:8080';
+const API_URL = import.meta.env.MODE === 'production' ? '' : 'http://localhost:8080';
 
 // Dados de fallback estáticos - múltiplos destinos
 const FALLBACK_DESTINATIONS: Destination[] = [
