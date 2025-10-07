@@ -1,19 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Destination } from '../types';
-import { fetchDailyDestination } from '../services/api';
+import CacheService from '../services/cacheService';
 
 export const useDestination = () => {
   const [destination, setDestination] = useState<Destination | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [backendStatus, setBackendStatus] = useState<{ isOnline: boolean; lastUpdate: Date | null }>({
+    isOnline: false,
+    lastUpdate: null
+  });
+
+  const cacheService = CacheService.getInstance();
 
   useEffect(() => {
     const loadDestination = async () => {
       try {
         setLoading(true);
-        const data = await fetchDailyDestination();
+        const data = await cacheService.getDestination();
         setDestination(data);
         setError(null);
+        setBackendStatus(cacheService.getBackendStatus());
         
         // Salvar no histórico
         saveToHistory(data);
@@ -28,6 +35,23 @@ export const useDestination = () => {
     loadDestination();
   }, []);
 
+  // Escutar atualizações do cache service
+  useEffect(() => {
+    const handleDestinationUpdate = (event: CustomEvent) => {
+      const newDestination = event.detail;
+      setDestination(newDestination);
+      setBackendStatus(cacheService.getBackendStatus());
+      saveToHistory(newDestination);
+      console.log('🔄 Destino atualizado via polling!');
+    };
+
+    window.addEventListener('destinationUpdated', handleDestinationUpdate as EventListener);
+    
+    return () => {
+      window.removeEventListener('destinationUpdated', handleDestinationUpdate as EventListener);
+    };
+  }, []);
+
   // Recarregar destino quando o idioma mudar
   useEffect(() => {
     const handleLanguageChange = () => {
@@ -35,9 +59,10 @@ export const useDestination = () => {
         const loadDestination = async () => {
           try {
             setLoading(true);
-            const data = await fetchDailyDestination();
+            const data = await cacheService.refreshDestination();
             setDestination(data);
             setError(null);
+            setBackendStatus(cacheService.getBackendStatus());
           } catch (err) {
             console.error('Erro ao recarregar destino:', err);
           } finally {
@@ -52,12 +77,12 @@ export const useDestination = () => {
     window.addEventListener('storage', handleLanguageChange);
     
     // Escutar mudanças no mesmo tab
-        const interval = setInterval(() => {
-          const currentLang = localStorage.getItem('language');
-          if (currentLang && currentLang !== 'pt') {
-            handleLanguageChange();
-          }
-        }, 1000);
+    const interval = setInterval(() => {
+      const currentLang = localStorage.getItem('language');
+      if (currentLang && currentLang !== 'pt') {
+        handleLanguageChange();
+      }
+    }, 1000);
 
     return () => {
       window.removeEventListener('storage', handleLanguageChange);
@@ -89,6 +114,28 @@ export const useDestination = () => {
     setDestination(newDestination);
   };
 
-  return { destination, loading, error, updateDestination };
+  const refreshDestination = async () => {
+    try {
+      setLoading(true);
+      const data = await cacheService.refreshDestination();
+      setDestination(data);
+      setError(null);
+      setBackendStatus(cacheService.getBackendStatus());
+    } catch (err) {
+      setError('Erro ao atualizar destino.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { 
+    destination, 
+    loading, 
+    error, 
+    updateDestination, 
+    refreshDestination,
+    backendStatus 
+  };
 };
 

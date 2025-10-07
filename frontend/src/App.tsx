@@ -9,12 +9,13 @@ import { DarkModeToggle } from './components/DarkModeToggle';
 import { RandomDestination } from './components/RandomDestination';
 import { LanguageToggle } from './components/LanguageToggle';
 import { AdBanner } from './components/AdSense';
+import { BackendStatus } from './components/BackendStatus';
 import { useDestination } from './hooks/useDestination';
 import './styles/App.css';
 import './styles/AdSense.css';
 
 function App() {
-  const { destination, loading, error, updateDestination } = useDestination();
+  const { destination, loading, error, updateDestination, refreshDestination, backendStatus } = useDestination();
 
   return (
     <div className="app">
@@ -24,6 +25,11 @@ function App() {
       <RandomDestination onRandomSelect={updateDestination} />
       <FavoritesList onSelectDestination={updateDestination} />
       <DestinationHistory onSelectDestination={updateDestination} />
+      <BackendStatus 
+        isOnline={backendStatus.isOnline} 
+        lastUpdate={backendStatus.lastUpdate}
+        onRefresh={refreshDestination}
+      />
       <Header />
       
       {/* Anúncio de teste para validação do AdSense */}
