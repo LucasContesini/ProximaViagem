@@ -1,4 +1,7 @@
-// Google Ads Conversion Tracking
+// Google Analytics - Desabilitado temporariamente
+// Para habilitar, configure um ID real do Google Analytics
+
+/*
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
@@ -8,14 +11,13 @@ declare global {
 export const trackGoogleAdsConversion = (conversionLabel: string, value?: number, currency = 'BRL') => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'conversion', {
-      'send_to': `AW-XXXXXXXXXX/${conversionLabel}`, // Substitua pelo seu ID do cliente
+      'send_to': `AW-SEU-ID-AQUI/${conversionLabel}`,
       'value': value || 1.0,
       'currency': currency
     });
   }
 };
 
-// Eventos específicos para o seu app
 export const trackDestinationView = (destinationName: string) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'page_view', {
@@ -53,4 +55,22 @@ export const trackRandomDestination = () => {
       'event_label': 'random_button'
     });
   }
+};
+*/
+
+// Funções temporárias (sem tracking)
+export const trackDestinationView = (destinationName: string) => {
+  console.log(`Destino visualizado: ${destinationName}`);
+};
+
+export const trackFavoriteAction = (destinationName: string) => {
+  console.log(`Destino favoritado: ${destinationName}`);
+};
+
+export const trackShareAction = (destinationName: string, platform: string) => {
+  console.log(`Destino compartilhado: ${destinationName} via ${platform}`);
+};
+
+export const trackRandomDestination = () => {
+  console.log('Destino aleatório solicitado');
 };
