@@ -8,7 +8,6 @@ import { FavoritesList } from './components/FavoritesList';
 import { DarkModeToggle } from './components/DarkModeToggle';
 import { RandomDestination } from './components/RandomDestination';
 import { LanguageToggle } from './components/LanguageToggle';
-import { AdBanner } from './components/AdBanner';
 import { useDestination } from './hooks/useDestination';
 import './styles/App.css';
 
@@ -31,17 +30,12 @@ function App() {
               {loading && <Loading />}
               {error && <Error message={error} />}
               {destination && (
-                <>
-                  <AdBanner className="ad-banner-top" />
-                  <DestinationCard destination={destination} />
-                  <AdBanner className="ad-banner-bottom" />
-                </>
+                <DestinationCard destination={destination} />
               )}
             </div>
           </main>
       
       <footer className="footer">
-        <AdBanner className="ad-footer" />
         <p>🌍 Próxima Viagem - Inspiração diária para suas aventuras</p>
         <p className="footer-note">Volte amanhã para descobrir um novo destino!</p>
         <div className="footer-links">
