@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Destination } from '../types';
-import CacheService from '../services/cacheService';
+import { fetchDailyDestination } from '../services/api';
 
 export const useDestination = () => {
   const [destination, setDestination] = useState<Destination | null>(null);
@@ -11,16 +11,17 @@ export const useDestination = () => {
     lastUpdate: null
   });
 
-  const cacheService = CacheService.getInstance();
-
   useEffect(() => {
     const loadDestination = async () => {
       try {
         setLoading(true);
-        const data = await cacheService.getDestination();
+        const data = await fetchDailyDestination();
         setDestination(data);
         setError(null);
-        setBackendStatus(cacheService.getBackendStatus());
+        setBackendStatus({
+          isOnline: !data.id.includes('static'),
+          lastUpdate: new Date()
+        });
         
         // Salvar no histórico
         saveToHistory(data);
@@ -35,23 +36,6 @@ export const useDestination = () => {
     loadDestination();
   }, []);
 
-  // Escutar atualizações do cache service
-  useEffect(() => {
-    const handleDestinationUpdate = (event: CustomEvent) => {
-      const newDestination = event.detail;
-      setDestination(newDestination);
-      setBackendStatus(cacheService.getBackendStatus());
-      saveToHistory(newDestination);
-      console.log('🔄 Destino atualizado via polling!');
-    };
-
-    window.addEventListener('destinationUpdated', handleDestinationUpdate as EventListener);
-    
-    return () => {
-      window.removeEventListener('destinationUpdated', handleDestinationUpdate as EventListener);
-    };
-  }, []);
-
   // Recarregar destino quando o idioma mudar
   useEffect(() => {
     const handleLanguageChange = () => {
@@ -59,10 +43,13 @@ export const useDestination = () => {
         const loadDestination = async () => {
           try {
             setLoading(true);
-            const data = await cacheService.refreshDestination();
+            const data = await fetchDailyDestination();
             setDestination(data);
             setError(null);
-            setBackendStatus(cacheService.getBackendStatus());
+            setBackendStatus({
+              isOnline: !data.id.includes('static'),
+              lastUpdate: new Date()
+            });
           } catch (err) {
             console.error('Erro ao recarregar destino:', err);
           } finally {
@@ -117,10 +104,13 @@ export const useDestination = () => {
   const refreshDestination = async () => {
     try {
       setLoading(true);
-      const data = await cacheService.refreshDestination();
+      const data = await fetchDailyDestination();
       setDestination(data);
       setError(null);
-      setBackendStatus(cacheService.getBackendStatus());
+      setBackendStatus({
+        isOnline: !data.id.includes('static'),
+        lastUpdate: new Date()
+      });
     } catch (err) {
       setError('Erro ao atualizar destino.');
       console.error(err);
