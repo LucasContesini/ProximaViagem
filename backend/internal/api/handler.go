@@ -118,10 +118,19 @@ func (h *Handler) GetRandomDestination(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) GetTestDestination(w http.ResponseWriter, r *http.Request) {
+	// Verificar se já existe no cache primeiro
+	destination, found := h.cache.Get()
+	if found {
+		log.Println("Returning cached destination for test endpoint")
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(destination)
+		return
+	}
+
 	// Detecta o idioma preferido do usuário
 	acceptLang := r.Header.Get("Accept-Language")
 	lang := "pt" // default
-
+	
 	if strings.Contains(acceptLang, "en") {
 		lang = "en"
 	} else if strings.Contains(acceptLang, "es") {
