@@ -6,9 +6,7 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Netlify Functions - backend integrado
-[functions]
-  directory = "netlify/functions"
+# Backend externo no Render
 
 # Fallback para SPA
 [[redirects]]
