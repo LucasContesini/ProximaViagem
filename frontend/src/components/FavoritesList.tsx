@@ -43,6 +43,11 @@ export const FavoritesList: React.FC<FavoritesListProps> = ({ onSelectDestinatio
   const handleSelect = (destination: Destination) => {
     onSelectDestination(destination);
     setIsOpen(false);
+    
+    // Scroll para o início da página
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   };
 
   return (
