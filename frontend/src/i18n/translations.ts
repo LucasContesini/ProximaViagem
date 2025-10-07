@@ -2,7 +2,7 @@ export const translations = {
   pt: {
     header: {
       title: 'Próxima Viagem',
-      subtitle: 'Seu Destino Diário'
+      subtitle: 'Um destino novo te espera todos os dias! ✈️'
     },
     buttons: {
       favorites: 'Favoritos',
@@ -51,7 +51,7 @@ export const translations = {
   en: {
     header: {
       title: 'Next Trip',
-      subtitle: 'Your Daily Destination'
+      subtitle: 'A new destination awaits you every day! ✈️'
     },
     buttons: {
       favorites: 'Favorites',
@@ -100,7 +100,7 @@ export const translations = {
   es: {
     header: {
       title: 'Próximo Viaje',
-      subtitle: 'Tu Destino Diario'
+      subtitle: '¡Un nuevo destino te espera cada día! ✈️'
     },
     buttons: {
       favorites: 'Favoritos',
