@@ -248,3 +248,4 @@ Para dúvidas ou sugestões, abra uma issue no repositório.
 **Desenvolvido com ❤️ para amantes de viagens**
 
 # Deploy Tue Oct  7 11:19:20 -03 2025
+# Force deploy Tue Oct  7 11:42:08 -03 2025
