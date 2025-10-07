@@ -2,7 +2,7 @@ import { Destination } from '../types';
 
 // Detecta automaticamente se está em produção ou desenvolvimento
 const API_URL = import.meta.env.VITE_API_URL || 
-  (import.meta.env.PROD ? '' : 'http://localhost:8080');
+  (import.meta.env.PROD ? '/.netlify/functions' : 'http://localhost:8080');
 
 export const fetchDailyDestination = async (): Promise<Destination> => {
   // Obter idioma do localStorage
@@ -10,8 +10,8 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
   const acceptLanguage = language === 'en' ? 'en' : language === 'es' ? 'es' : 'pt';
 
   try {
-    // Tentar primeiro o endpoint principal (com IA)
-    const response = await fetch(`${API_URL}/api/destination`, {
+    // Tentar primeiro o endpoint principal (Netlify Function)
+    const response = await fetch(`${API_URL}/destination`, {
       headers: {
         'Accept-Language': acceptLanguage
       }
@@ -23,7 +23,7 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
     
     // Se der erro, tenta o endpoint de fallback
     console.log('API principal falhou, usando endpoint de fallback');
-    const fallbackResponse = await fetch(`${API_URL}/api/destination/fallback`, {
+    const fallbackResponse = await fetch(`${API_URL}/destination-fallback`, {
       headers: {
         'Accept-Language': acceptLanguage
       }
@@ -38,7 +38,7 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
   } catch (error) {
     // Fallback para endpoint de fallback
     console.error('Erro na API, tentando endpoint de fallback:', error);
-    const fallbackResponse = await fetch(`${API_URL}/api/destination/fallback`, {
+    const fallbackResponse = await fetch(`${API_URL}/destination-fallback`, {
       headers: {
         'Accept-Language': acceptLanguage
       }

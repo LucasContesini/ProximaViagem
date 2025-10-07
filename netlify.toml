@@ -6,24 +6,9 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Proxy para API do backend - tentar endpoint principal primeiro
-[[redirects]]
-  from = "/api/destination"
-  to = "https://proximaviagem.fly.dev/api/destination"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/destination/fallback"
-  to = "https://proximaviagem.fly.dev/api/destination/fallback"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/health"
-  to = "https://proximaviagem.fly.dev/api/health"
-  status = 200
-  force = true
+# Netlify Functions - backend integrado
+[functions]
+  directory = "netlify/functions"
 
 # Fallback para SPA
 [[redirects]]
