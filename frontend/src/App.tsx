@@ -44,6 +44,7 @@ function App() {
                 <>
                   <AdBanner className="ad-banner-top" />
                   <DestinationCard destination={destination} />
+                  <AdBanner className="ad-banner-middle" />
                   <AdBanner className="ad-banner-bottom" />
                 </>
               )}
@@ -51,6 +52,7 @@ function App() {
           </main>
       
       <footer className="footer">
+        <AdBanner className="ad-footer" />
         <p>🌍 Próxima Viagem - Inspiração diária para suas aventuras</p>
         <p className="footer-note">Volte amanhã para descobrir um novo destino!</p>
         <div className="footer-links">

@@ -150,13 +150,36 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
           </div>
         )}
 
-        <div className="best-time">
-          <span className="best-time-icon">🌤️</span>
-          <div>
-            <strong>{t.sections.bestTime}:</strong>
-            <p>{destination.bestTime}</p>
-          </div>
-        </div>
+            <div className="best-time">
+              <span className="best-time-icon">🌤️</span>
+              <div>
+                <strong>{t.sections.bestTime}:</strong>
+                <p>{destination.bestTime}</p>
+              </div>
+            </div>
+
+            {/* Seção de conteúdo adicional para SEO e AdSense */}
+            <div className="section additional-content">
+              <h3 className="section-title">📚 {t.sections.additionalInfo || 'Informações Adicionais'}</h3>
+              <div className="content-grid">
+                <div className="content-item">
+                  <h4>🌍 {t.sections.climate || 'Clima'}</h4>
+                  <p>{destination.climate || 'Clima tropical com temperaturas agradáveis durante todo o ano.'}</p>
+                </div>
+                <div className="content-item">
+                  <h4>🎒 {t.sections.whatToPack || 'O que Levar'}</h4>
+                  <p>{destination.whatToPack || 'Roupas leves, protetor solar, câmera e disposição para aventuras!'}</p>
+                </div>
+                <div className="content-item">
+                  <h4>📱 {t.sections.connectivity || 'Conectividade'}</h4>
+                  <p>{destination.connectivity || 'Cobertura de internet disponível na maioria das áreas urbanas.'}</p>
+                </div>
+                <div className="content-item">
+                  <h4>🏥 {t.sections.health || 'Saúde'}</h4>
+                  <p>{destination.health || 'Consulte seu médico antes de viajar e leve um kit básico de primeiros socorros.'}</p>
+                </div>
+              </div>
+            </div>
 
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', margin: '1.5rem 0' }}>
           <FavoriteButton destination={destination} />
