@@ -8,6 +8,7 @@ import (
 
 	"github.com/lcontesini/proxima-viagem/internal/ai"
 	"github.com/lcontesini/proxima-viagem/internal/cache"
+	"github.com/lcontesini/proxima-viagem/internal/models"
 )
 
 type Handler struct {
