@@ -10,8 +10,8 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
   const acceptLanguage = language === 'en' ? 'en' : language === 'es' ? 'es' : 'pt';
 
   try {
-    // Usar endpoint de teste que não depende de API externa
-    const response = await fetch(`${API_URL}/api/destination/test`, {
+    // Tentar primeiro o endpoint principal (com IA)
+    const response = await fetch(`${API_URL}/api/destination`, {
       headers: {
         'Accept-Language': acceptLanguage
       }
@@ -21,10 +21,33 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
       return response.json();
     }
     
+    // Se der erro, tenta o endpoint de teste (fallback)
+    console.log('API principal falhou, usando endpoint de teste');
+    const testResponse = await fetch(`${API_URL}/api/destination/test`, {
+      headers: {
+        'Accept-Language': acceptLanguage
+      }
+    });
+    
+    if (testResponse.ok) {
+      return testResponse.json();
+    }
+    
     throw new Error(`Failed to fetch destination: ${response.status}`);
     
   } catch (error) {
-    console.error('Erro na API:', error);
+    // Fallback para endpoint de teste
+    console.error('Erro na API, tentando endpoint de teste:', error);
+    const testResponse = await fetch(`${API_URL}/api/destination/test`, {
+      headers: {
+        'Accept-Language': acceptLanguage
+      }
+    });
+    
+    if (testResponse.ok) {
+      return testResponse.json();
+    }
+    
     throw error;
   }
 };

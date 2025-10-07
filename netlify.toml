@@ -6,10 +6,10 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Proxy para API do backend - usando endpoint de teste que não depende de API externa
+# Proxy para API do backend - tentar endpoint principal primeiro
 [[redirects]]
   from = "/api/destination"
-  to = "https://proximaviagem.fly.dev/api/destination/test"
+  to = "https://proximaviagem.fly.dev/api/destination"
   status = 200
   force = true
 
