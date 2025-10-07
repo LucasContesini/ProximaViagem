@@ -1,8 +1,7 @@
 import { Destination } from '../types';
 
-// Detecta automaticamente se está em produção ou desenvolvimento
-const API_URL = import.meta.env.VITE_API_URL ||
-  (import.meta.env.PROD ? 'https://proximaviagemapi.onrender.com' : 'http://localhost:8080');
+// URL do backend - Render em produção, localhost em desenvolvimento
+const API_URL = import.meta.env.PROD ? 'https://proximaviagemapi.onrender.com' : 'http://localhost:8080';
 
 export const fetchDailyDestination = async (): Promise<Destination> => {
   // Obter idioma do localStorage
