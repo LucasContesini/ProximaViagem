@@ -26,15 +26,6 @@ function App() {
       <DestinationHistory onSelectDestination={updateDestination} />
       <Header />
       
-      {/* Anúncio de teste para validação do AdSense */}
-      <div style={{ textAlign: 'center', margin: '1rem 0', padding: '1rem', background: '#f0f0f0', borderRadius: '8px' }}>
-        <ins className="adsbygoogle"
-             style={{ display: 'block' }}
-             data-ad-client="ca-pub-1841551118944574"
-             data-ad-slot="1234567890"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-      </div>
       
           <main className="main-content">
             <div className="content-wrapper">

@@ -42,29 +42,18 @@ export const AdSense: React.FC<AdSenseProps> = ({
 };
 
 // Componentes pré-configurados para diferentes tipos de anúncios
-export const AdBanner: React.FC<{ className?: string }> = ({ className }) => (
-  <AdSense
-    adSlot="1234567890" // Substitua pelo seu slot ID
-    adFormat="auto"
-    adStyle={{ display: 'block', minHeight: '90px' }}
-    className={className}
-  />
-);
+// Temporariamente desabilitados até ter slots válidos do Google AdSense
+export const AdBanner: React.FC<{ className?: string }> = () => {
+  // AdSense temporariamente desabilitado - aguardando slots válidos
+  return null;
+};
 
-export const AdRectangle: React.FC<{ className?: string }> = ({ className }) => (
-  <AdSense
-    adSlot="1234567890" // Substitua pelo seu slot ID
-    adFormat="rectangle"
-    adStyle={{ display: 'block', width: '300px', height: '250px' }}
-    className={className}
-  />
-);
+export const AdRectangle: React.FC<{ className?: string }> = () => {
+  // AdSense temporariamente desabilitado - aguardando slots válidos
+  return null;
+};
 
-export const AdVertical: React.FC<{ className?: string }> = ({ className }) => (
-  <AdSense
-    adSlot="1234567890" // Substitua pelo seu slot ID
-    adFormat="vertical"
-    adStyle={{ display: 'block', width: '160px', height: '600px' }}
-    className={className}
-  />
-);
+export const AdVertical: React.FC<{ className?: string }> = () => {
+  // AdSense temporariamente desabilitado - aguardando slots válidos
+  return null;
+};

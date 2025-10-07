@@ -246,9 +246,14 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
     }, 10000);
     
     if (response.ok) {
-      const data = await response.json();
-      console.log('✅ Backend online - dados da IA');
-      return data;
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        console.log('✅ Backend online - dados da IA');
+        return data;
+      } else {
+        console.log('⚠️ API principal retornou HTML em vez de JSON, tentando fallback...');
+      }
     }
     
     console.log(`⚠️ API principal retornou ${response.status}, tentando fallback...`);
@@ -264,9 +269,14 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
     }, 10000);
     
     if (fallbackResponse.ok) {
-      const data = await fallbackResponse.json();
-      console.log('✅ Fallback do backend funcionando');
-      return data;
+      const contentType = fallbackResponse.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await fallbackResponse.json();
+        console.log('✅ Fallback do backend funcionando');
+        return data;
+      } else {
+        console.log('⚠️ Fallback retornou HTML em vez de JSON, usando dados estáticos...');
+      }
     }
     
     console.log(`⚠️ Fallback retornou ${fallbackResponse.status}, usando dados estáticos...`);
