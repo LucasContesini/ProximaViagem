@@ -4,6 +4,7 @@ import { ShareButtons } from './ShareButtons';
 import { FavoriteButton } from './FavoriteButton';
 import { MapButton } from './MapButton';
 import { CuisineDropdown } from './CuisineDropdown';
+import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/DestinationCard.css';
 
 interface DestinationCardProps {
@@ -12,6 +13,7 @@ interface DestinationCardProps {
 
 export const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { t } = useLanguage();
   const images = destination.images && destination.images.length > 0 
     ? destination.images 
     : [destination.imageUrl];
@@ -67,13 +69,13 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
 
         {destination.detailedInfo && (
           <div className="section detailed-info">
-            <h3 className="section-title">📖 Sobre o Destino</h3>
+            <h3 className="section-title">📖 {t.sections.about}</h3>
             <p className="detailed-text">{destination.detailedInfo}</p>
           </div>
         )}
 
         <div className="section">
-          <h3 className="section-title">🎯 Principais Atrações</h3>
+          <h3 className="section-title">🎯 {t.sections.attractions}</h3>
           <div className="attractions-grid">
             {destination.attractions.map((attraction, index) => (
               <div key={index} className="attraction-card">
@@ -93,7 +95,7 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
         </div>
 
         <div className="section">
-          <h3 className="section-title">💡 Dicas de Viagem</h3>
+          <h3 className="section-title">💡 {t.sections.tips}</h3>
           <ul className="list tips-list">
             {destination.tips.map((tip, index) => (
               <li key={index}>{tip}</li>
@@ -103,18 +105,18 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
 
         {destination.budget && (
           <div className="section budget-section">
-            <h3 className="section-title">💵 Orçamento Estimado</h3>
+            <h3 className="section-title">💵 {t.sections.budget}</h3>
             <div className="budget-grid">
               <div className="budget-item">
-                <span className="budget-label">💚 Econômico</span>
+                <span className="budget-label">💚 {t.budget.low}</span>
                 <p className="budget-text">{destination.budget.low}</p>
               </div>
               <div className="budget-item">
-                <span className="budget-label">💛 Médio</span>
+                <span className="budget-label">💛 {t.budget.medium}</span>
                 <p className="budget-text">{destination.budget.medium}</p>
               </div>
               <div className="budget-item">
-                <span className="budget-label">💙 Confortável</span>
+                <span className="budget-label">💙 {t.budget.high}</span>
                 <p className="budget-text">{destination.budget.high}</p>
               </div>
             </div>
@@ -123,21 +125,21 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
 
         {destination.transportation && (
           <div className="section">
-            <h3 className="section-title">🚗 Como Chegar e Se Locomover</h3>
+            <h3 className="section-title">🚗 {t.sections.transport}</h3>
             <p className="info-text">{destination.transportation}</p>
           </div>
         )}
 
         {destination.accommodation && (
           <div className="section">
-            <h3 className="section-title">🏨 Onde Se Hospedar</h3>
+            <h3 className="section-title">🏨 {t.sections.accommodation}</h3>
             <p className="info-text">{destination.accommodation}</p>
           </div>
         )}
 
         {destination.localCuisine && destination.localCuisine.length > 0 && (
           <div className="section">
-            <h3 className="section-title">🍽️ Gastronomia Local</h3>
+            <h3 className="section-title">🍽️ {t.sections.cuisine}</h3>
             <CuisineDropdown dishes={destination.localCuisine} />
           </div>
         )}
@@ -145,7 +147,7 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
         <div className="best-time">
           <span className="best-time-icon">🌤️</span>
           <div>
-            <strong>Melhor Época:</strong>
+            <strong>{t.sections.bestTime}:</strong>
             <p>{destination.bestTime}</p>
           </div>
         </div>

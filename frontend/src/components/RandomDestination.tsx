@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Destination } from '../types';
+import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/RandomDestination.css';
 
 interface RandomDestinationProps {
@@ -8,6 +9,7 @@ interface RandomDestinationProps {
 
 export const RandomDestination: React.FC<RandomDestinationProps> = ({ onRandomSelect }) => {
   const [loading, setLoading] = useState(false);
+  const { t } = useLanguage();
 
   const getRandomDestination = async () => {
     setLoading(true);
@@ -30,7 +32,7 @@ export const RandomDestination: React.FC<RandomDestinationProps> = ({ onRandomSe
       onClick={getRandomDestination}
       disabled={loading}
     >
-      {loading ? '🎲 Carregando...' : '🎲 Surpresa!'}
+      {loading ? `🎲 ${t.messages.loading}` : `🎲 ${t.buttons.random}`}
     </button>
   );
 };

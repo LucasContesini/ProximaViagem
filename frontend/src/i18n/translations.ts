@@ -13,7 +13,11 @@ export const translations = {
       favorited: 'Favoritado',
       viewMap: 'Ver no Google Maps',
       install: 'Instalar',
-      search: 'Buscar'
+      search: 'Buscar',
+      close: 'Fechar',
+      copyLink: 'Copiar Link',
+      addFavorite: 'Adicionar aos favoritos',
+      removeFavorite: 'Remover dos favoritos'
     },
     sections: {
       about: 'Sobre o Destino',
@@ -23,7 +27,9 @@ export const translations = {
       transport: 'Como Chegar e Se Locomover',
       accommodation: 'Onde Se Hospedar',
       cuisine: 'Gastronomia Local',
-      bestTime: 'Melhor Época'
+      bestTime: 'Melhor Época',
+      myFavorites: 'Meus Favoritos',
+      previousDestinations: 'Destinos Anteriores'
     },
     budget: {
       low: 'Econômico',
@@ -34,7 +40,12 @@ export const translations = {
       loading: 'Carregando destino...',
       error: 'Erro ao carregar destino. Tente novamente mais tarde.',
       noFavorites: 'Nenhum favorito ainda',
-      noHistory: 'Nenhum histórico'
+      noHistory: 'Nenhum histórico',
+      addFavorites: 'Comece a favoritar destinos que você quer visitar!',
+      shareDestination: 'Compartilhe este destino',
+      dailyDestination: 'Destino do dia',
+      discoverMore: 'Descubra mais em',
+      copied: 'Copiado!'
     }
   },
   en: {
@@ -51,7 +62,11 @@ export const translations = {
       favorited: 'Favorited',
       viewMap: 'View on Google Maps',
       install: 'Install',
-      search: 'Search'
+      search: 'Search',
+      close: 'Close',
+      copyLink: 'Copy Link',
+      addFavorite: 'Add to favorites',
+      removeFavorite: 'Remove from favorites'
     },
     sections: {
       about: 'About the Destination',
@@ -61,7 +76,9 @@ export const translations = {
       transport: 'How to Get Around',
       accommodation: 'Where to Stay',
       cuisine: 'Local Cuisine',
-      bestTime: 'Best Time to Visit'
+      bestTime: 'Best Time to Visit',
+      myFavorites: 'My Favorites',
+      previousDestinations: 'Previous Destinations'
     },
     budget: {
       low: 'Budget',
@@ -72,7 +89,12 @@ export const translations = {
       loading: 'Loading destination...',
       error: 'Error loading destination. Please try again later.',
       noFavorites: 'No favorites yet',
-      noHistory: 'No history'
+      noHistory: 'No history',
+      addFavorites: 'Start favoriting destinations you want to visit!',
+      shareDestination: 'Share this destination',
+      dailyDestination: 'Daily destination',
+      discoverMore: 'Discover more at',
+      copied: 'Copied!'
     }
   },
   es: {
@@ -89,7 +111,11 @@ export const translations = {
       favorited: 'Favoritado',
       viewMap: 'Ver en Google Maps',
       install: 'Instalar',
-      search: 'Buscar'
+      search: 'Buscar',
+      close: 'Cerrar',
+      copyLink: 'Copiar Enlace',
+      addFavorite: 'Agregar a favoritos',
+      removeFavorite: 'Quitar de favoritos'
     },
     sections: {
       about: 'Sobre el Destino',
@@ -99,7 +125,9 @@ export const translations = {
       transport: 'Cómo Llegar y Moverse',
       accommodation: 'Dónde Alojarse',
       cuisine: 'Gastronomía Local',
-      bestTime: 'Mejor Época'
+      bestTime: 'Mejor Época',
+      myFavorites: 'Mis Favoritos',
+      previousDestinations: 'Destinos Anteriores'
     },
     budget: {
       low: 'Económico',
@@ -110,7 +138,12 @@ export const translations = {
       loading: 'Cargando destino...',
       error: 'Error al cargar destino. Inténtalo de nuevo más tarde.',
       noFavorites: 'Aún no hay favoritos',
-      noHistory: 'Sin historial'
+      noHistory: 'Sin historial',
+      addFavorites: '¡Comienza a marcar como favoritos los destinos que quieres visitar!',
+      shareDestination: 'Comparte este destino',
+      dailyDestination: 'Destino del día',
+      discoverMore: 'Descubre más en',
+      copied: '¡Copiado!'
     }
   }
 };

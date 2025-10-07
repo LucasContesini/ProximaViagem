@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Destination } from '../types';
+import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/ShareButtons.css';
 
 interface ShareButtonsProps {
@@ -8,8 +9,9 @@ interface ShareButtonsProps {
 
 export const ShareButtons: React.FC<ShareButtonsProps> = ({ destination }) => {
   const [copied, setCopied] = useState(false);
+  const { t } = useLanguage();
   const url = window.location.href;
-  const text = `🌍 Destino do dia: ${destination.name}, ${destination.country}! ${destination.description.substring(0, 100)}... Descubra mais em:`;
+  const text = `🌍 ${t.messages.dailyDestination}: ${destination.name}, ${destination.country}! ${destination.description.substring(0, 100)}... ${t.messages.discoverMore}:`;
 
   const shareOnWhatsApp = () => {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
@@ -52,7 +54,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ destination }) => {
 
   return (
     <div className="share-buttons">
-      <h3 className="share-title">📤 Compartilhe este destino:</h3>
+      <h3 className="share-title">📤 {t.messages.shareDestination}:</h3>
       <div className="share-buttons-container">
         <button 
           onClick={shareOnWhatsApp} 
@@ -95,7 +97,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ destination }) => {
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
           </svg>
-          {copied ? 'Copiado!' : 'Copiar Link'}
+          {copied ? t.messages.copied : t.buttons.copyLink}
         </button>
 
         {'share' in navigator && (
@@ -107,7 +109,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ destination }) => {
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
               <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
             </svg>
-            Compartilhar
+            {t.buttons.share}
           </button>
         )}
       </div>

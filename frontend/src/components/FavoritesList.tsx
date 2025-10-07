@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Destination } from '../types';
+import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/FavoritesList.css';
 
 interface FavoritesListProps {
@@ -9,6 +10,7 @@ interface FavoritesListProps {
 export const FavoritesList: React.FC<FavoritesListProps> = ({ onSelectDestination }) => {
   const [favorites, setFavorites] = useState<Destination[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (isOpen) {
@@ -48,20 +50,20 @@ export const FavoritesList: React.FC<FavoritesListProps> = ({ onSelectDestinatio
       <button 
         className="favorites-toggle"
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Ver favoritos"
+        aria-label={t.buttons.favorites}
       >
-        ⭐ Favoritos {favorites.length > 0 && `(${favorites.length})`}
+        ⭐ {t.buttons.favorites} {favorites.length > 0 && `(${favorites.length})`}
       </button>
 
       {isOpen && (
         <div className="favorites-modal" onClick={() => setIsOpen(false)}>
           <div className="favorites-content" onClick={(e) => e.stopPropagation()}>
             <div className="favorites-header">
-              <h2>⭐ Meus Favoritos</h2>
+              <h2>⭐ {t.sections.myFavorites}</h2>
               <button 
                 className="favorites-close"
                 onClick={() => setIsOpen(false)}
-                aria-label="Fechar"
+                aria-label={t.buttons.close}
               >
                 ✕
               </button>
@@ -70,8 +72,8 @@ export const FavoritesList: React.FC<FavoritesListProps> = ({ onSelectDestinatio
             {favorites.length === 0 ? (
               <div className="favorites-empty">
                 <div className="empty-icon">💔</div>
-                <h3>Nenhum favorito ainda</h3>
-                <p>Comece a favoritar destinos que você quer visitar!</p>
+                <h3>{t.messages.noFavorites}</h3>
+                <p>{t.messages.addFavorites}</p>
               </div>
             ) : (
               <div className="favorites-list">

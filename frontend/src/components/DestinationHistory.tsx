@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Destination } from '../types';
+import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/DestinationHistory.css';
 
 interface DestinationHistoryProps {
@@ -9,6 +10,7 @@ interface DestinationHistoryProps {
 export const DestinationHistory: React.FC<DestinationHistoryProps> = ({ onSelectDestination }) => {
   const [history, setHistory] = useState<Destination[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     loadHistory();
@@ -55,20 +57,20 @@ export const DestinationHistory: React.FC<DestinationHistoryProps> = ({ onSelect
       <button 
         className="history-toggle"
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Ver histórico de destinos"
+        aria-label={t.buttons.history}
       >
-        📅 Histórico ({history.length})
+        📅 {t.buttons.history} ({history.length})
       </button>
 
       {isOpen && (
         <div className="history-modal" onClick={() => setIsOpen(false)}>
           <div className="history-content" onClick={(e) => e.stopPropagation()}>
             <div className="history-header">
-              <h2>📅 Destinos Anteriores</h2>
+              <h2>📅 {t.sections.previousDestinations}</h2>
               <button 
                 className="history-close"
                 onClick={() => setIsOpen(false)}
-                aria-label="Fechar"
+                aria-label={t.buttons.close}
               >
                 ✕
               </button>

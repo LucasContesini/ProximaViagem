@@ -28,6 +28,43 @@ export const useDestination = () => {
     loadDestination();
   }, []);
 
+  // Recarregar destino quando o idioma mudar
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      if (destination) {
+        const loadDestination = async () => {
+          try {
+            setLoading(true);
+            const data = await fetchDailyDestination();
+            setDestination(data);
+            setError(null);
+          } catch (err) {
+            console.error('Erro ao recarregar destino:', err);
+          } finally {
+            setLoading(false);
+          }
+        };
+        loadDestination();
+      }
+    };
+
+    // Escutar mudanças no localStorage
+    window.addEventListener('storage', handleLanguageChange);
+    
+    // Escutar mudanças no mesmo tab
+    const interval = setInterval(() => {
+      const currentLang = localStorage.getItem('language');
+      if (currentLang && currentLang !== destination?.language) {
+        handleLanguageChange();
+      }
+    }, 1000);
+
+    return () => {
+      window.removeEventListener('storage', handleLanguageChange);
+      clearInterval(interval);
+    };
+  }, [destination]);
+
   const saveToHistory = (dest: Destination) => {
     try {
       const history = localStorage.getItem('destination-history');
