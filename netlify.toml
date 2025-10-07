@@ -7,6 +7,19 @@
   NODE_VERSION = "18"
 
 # Backend externo no Render
+[[redirects]]
+  from = "/api/destination"
+  to = "https://proximaviagemapi.onrender.com/api/destination"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+
+[[redirects]]
+  from = "/api/destination/fallback"
+  to = "https://proximaviagemapi.onrender.com/api/destination/fallback"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
 
 # Fallback para SPA
 [[redirects]]
