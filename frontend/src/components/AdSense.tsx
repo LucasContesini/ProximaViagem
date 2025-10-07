@@ -46,7 +46,7 @@ export const AdBanner: React.FC<{ className?: string }> = ({ className }) => (
   <AdSense
     adSlot="1234567890" // Substitua pelo seu slot ID
     adFormat="auto"
-    adStyle={{ display: 'block' }}
+    adStyle={{ display: 'block', minHeight: '90px' }}
     className={className}
   />
 );
