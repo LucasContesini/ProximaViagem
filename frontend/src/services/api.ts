@@ -21,31 +21,31 @@ export const fetchDailyDestination = async (): Promise<Destination> => {
       return response.json();
     }
     
-    // Se der erro, tenta o endpoint de teste (fallback)
-    console.log('API principal falhou, usando endpoint de teste');
-    const testResponse = await fetch(`${API_URL}/api/destination/test`, {
+    // Se der erro, tenta o endpoint de fallback
+    console.log('API principal falhou, usando endpoint de fallback');
+    const fallbackResponse = await fetch(`${API_URL}/api/destination/fallback`, {
       headers: {
         'Accept-Language': acceptLanguage
       }
     });
     
-    if (testResponse.ok) {
-      return testResponse.json();
+    if (fallbackResponse.ok) {
+      return fallbackResponse.json();
     }
     
     throw new Error(`Failed to fetch destination: ${response.status}`);
     
   } catch (error) {
-    // Fallback para endpoint de teste
-    console.error('Erro na API, tentando endpoint de teste:', error);
-    const testResponse = await fetch(`${API_URL}/api/destination/test`, {
+    // Fallback para endpoint de fallback
+    console.error('Erro na API, tentando endpoint de fallback:', error);
+    const fallbackResponse = await fetch(`${API_URL}/api/destination/fallback`, {
       headers: {
         'Accept-Language': acceptLanguage
       }
     });
     
-    if (testResponse.ok) {
-      return testResponse.json();
+    if (fallbackResponse.ok) {
+      return fallbackResponse.json();
     }
     
     throw error;

@@ -30,7 +30,7 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/api/destination", handler.GetDailyDestination).Methods("GET")
-	r.HandleFunc("/api/destination/test", handler.GetTestDestination).Methods("GET")
+	r.HandleFunc("/api/destination/fallback", handler.GetTestDestination).Methods("GET")
 	r.HandleFunc("/api/destinations", handler.GetAllDestinations).Methods("GET")
 	r.HandleFunc("/api/destination/random", handler.GetRandomDestination).Methods("GET")
 	r.HandleFunc("/api/destination/add", handler.AddDestination).Methods("POST")

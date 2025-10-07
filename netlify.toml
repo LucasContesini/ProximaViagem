@@ -14,8 +14,8 @@
   force = true
 
 [[redirects]]
-  from = "/api/destination/test"
-  to = "https://proximaviagem.fly.dev/api/destination/test"
+  from = "/api/destination/fallback"
+  to = "https://proximaviagem.fly.dev/api/destination/fallback"
   status = 200
   force = true
 
