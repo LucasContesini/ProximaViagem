@@ -8,10 +8,9 @@ import { FavoritesList } from './components/FavoritesList';
 import { DarkModeToggle } from './components/DarkModeToggle';
 import { RandomDestination } from './components/RandomDestination';
 import { LanguageToggle } from './components/LanguageToggle';
-import { AdBanner } from './components/AdSense';
+import { AdBanner } from './components/AdBanner';
 import { useDestination } from './hooks/useDestination';
 import './styles/App.css';
-import './styles/AdSense.css';
 
 function App() {
   const { destination, loading, error, updateDestination } = useDestination();
@@ -35,7 +34,6 @@ function App() {
                 <>
                   <AdBanner className="ad-banner-top" />
                   <DestinationCard destination={destination} />
-                  <AdBanner className="ad-banner-middle" />
                   <AdBanner className="ad-banner-bottom" />
                 </>
               )}
