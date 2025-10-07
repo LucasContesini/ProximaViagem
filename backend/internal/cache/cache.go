@@ -13,12 +13,14 @@ type Cache struct {
 	lastUpdate        time.Time
 	allDestinations   map[string]*models.Destination // Cache de TODOS os destinos por ID
 	destinationsByDay map[string]*models.Destination // Cache por data (YYYY-MM-DD)
+	recentDestinations []*models.Destination         // Últimos 7 destinos para fallback
 }
 
 func New() *Cache {
 	return &Cache{
-		allDestinations:   make(map[string]*models.Destination),
-		destinationsByDay: make(map[string]*models.Destination),
+		allDestinations:    make(map[string]*models.Destination),
+		destinationsByDay:  make(map[string]*models.Destination),
+		recentDestinations: make([]*models.Destination, 0, 7),
 	}
 }
 
@@ -60,6 +62,28 @@ func (c *Cache) Set(destination *models.Destination) {
 	// Armazenar no cache por data
 	dateKey := now.Format("2006-01-02")
 	c.destinationsByDay[dateKey] = destination
+	
+	// Adicionar aos destinos recentes (máximo 7)
+	c.addToRecentDestinations(destination)
+}
+
+func (c *Cache) addToRecentDestinations(destination *models.Destination) {
+	// Verificar se já existe
+	for i, dest := range c.recentDestinations {
+		if dest.ID == destination.ID {
+			// Remover da posição atual
+			c.recentDestinations = append(c.recentDestinations[:i], c.recentDestinations[i+1:]...)
+			break
+		}
+	}
+	
+	// Adicionar no início
+	c.recentDestinations = append([]*models.Destination{destination}, c.recentDestinations...)
+	
+	// Manter apenas os últimos 7
+	if len(c.recentDestinations) > 7 {
+		c.recentDestinations = c.recentDestinations[:7]
+	}
 }
 
 func (c *Cache) GetByID(id string) (*models.Destination, bool) {
@@ -87,6 +111,31 @@ func (c *Cache) GetAll() []*models.Destination {
 		destinations = append(destinations, dest)
 	}
 	return destinations
+}
+
+// GetRecentDestinations retorna os últimos 7 destinos para fallback
+func (c *Cache) GetRecentDestinations() []*models.Destination {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	
+	// Retornar uma cópia para evitar problemas de concorrência
+	recent := make([]*models.Destination, len(c.recentDestinations))
+	copy(recent, c.recentDestinations)
+	return recent
+}
+
+// GetRandomRecentDestination retorna um destino aleatório dos últimos 7
+func (c *Cache) GetRandomRecentDestination() (*models.Destination, bool) {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	
+	if len(c.recentDestinations) == 0 {
+		return nil, false
+	}
+	
+	// Usar timestamp para pseudo-aleatoriedade
+	index := int(time.Now().UnixNano()) % len(c.recentDestinations)
+	return c.recentDestinations[index], true
 }
 
 func (c *Cache) Clear() {

@@ -1,0 +1,91 @@
+{
+    "id": "dest-1759801821",
+    "name": "Paraty",
+    "country": "Brasil",
+    "description": "Paraty é uma cidade histórica localizada no estado do Rio de Janeiro, conhecida por suas ruas de paralelepípedos e arquitetura colonial. O destino é ideal para aqueles que buscam uma experiência mais tranquila e em contato com a natureza e a cultura. Paraty oferece uma variedade de atividades, como visitas a museus, praças e igrejas, além de oportunidades para praticar esportes aquáticos e caminhadas.",
+    "detailedInfo": "Paraty é uma cidade que preserva a essência do Brasil colonial, com casarões históricos, igrejas do século XVIII e ruas que parecem ter parado no tempo. Além de sua rica história, o destino é cercado por uma natureza exuberante, com praias, cachoeiras e montanhas que oferecem opções para todos os gostos. A cidade também é famosa por seu Festival de Música de Paraty, que atraí artistas e músicos de todo o mundo. A culinária local é outra atração, com pratos típicos como o peixe fresco, feijoada e moqueca. Paraty é um destino que combina perfeitamente história, cultura, natureza e lazer, tornando-se um local imperdível para qualquer viajante.",
+    "imageUrl": "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800",
+    "images": [
+        "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800",
+        "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=800",
+        "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800",
+        "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800"
+    ],
+    "tips": [
+        "Chegue em Paraty durante a semana para evitar multidões e aproveitar preços mais acessíveis.",
+        "Respeite as ruas de paralelepípedos e não dirija veículos pesados pelas ruas históricas.",
+        "Aproveite as noites de lua cheia para caminhar pelas ruas iluminadas da cidade.",
+        "Não perca a oportunidade de visitar as praias mais isoladas, como a Praia do Sono.",
+        "Experimente a culinária local em restaurantes familiares e não hesite em pedir recomendações.",
+        "Visite a cidade durante o Festival de Música de Paraty para vivenciar a cultura musical brasileira."
+    ],
+    "attractions": [
+        {
+            "name": "Centro Histórico",
+            "description": "O Centro Histórico de Paraty é um local imperdível, com ruas de paralelepípedos, casarões coloniais e igrejas do século XVIII. É o coração da cidade e um local onde o tempo parece ter parado.",
+            "duration": "Meio dia",
+            "price": "Grátis"
+        },
+        {
+            "name": "Praia do Sono",
+            "description": "A Praia do Sono é uma das mais isoladas e bonitas de Paraty, ideal para quem busca tranquilidade e contato com a natureza. A praia é cercada por montanhas e oferece oportunidades para caminhadas e banhos de cachoeira.",
+            "duration": "Dia todo",
+            "price": "Grátis, mas pode haver taxas para estacionamento"
+        },
+        {
+            "name": "Museu de Arte Sacra",
+            "description": "O Museu de Arte Sacra de Paraty abriga uma coleção de artefatos religiosos e históricos, oferecendo uma visão profunda da história e cultura da cidade.",
+            "duration": "2 horas",
+            "price": "R$ 10-20"
+        },
+        {
+            "name": "Cachoeira do Tobogã",
+            "description": "A Cachoeira do Tobogã é um local natural incrível, com uma queda d'água que forma uma piscina natural. É perfeita para banhos refreshantes e caminhadas pela floresta.",
+            "duration": "Meio dia",
+            "price": "Grátis, mas pode haver taxas para estacionamento"
+        },
+        {
+            "name": "Festival de Música de Paraty",
+            "description": "O Festival de Música de Paraty é um evento anual que reúne músicos de todo o mundo. É uma oportunidade única para vivenciar a cultura musical brasileira e internacional.",
+            "duration": "Vários dias",
+            "price": "Preços variados de acordo com os eventos"
+        },
+        {
+            "name": "Passeio de Barco",
+            "description": "Um passeio de barco pela Baía de Paraty oferece uma visão única da cidade e da natureza que a cerca. É uma ótima opção para relaxar e aproveitar a paisagem.",
+            "duration": "Meio dia",
+            "price": "R$ 50-100"
+        }
+    ],
+    "bestTime": "O melhor período para visitar Paraty é de março a outubro, quando o clima é mais seco e agradável. Evite visitar durante o Carnaval e feriados prolongados, quando a cidade fica muito cheia.",
+    "budget": {
+        "low": "Orçamento econômico: R$ 100-200 por dia (inclui hospedagem em hostel, refeições em restaurantes populares e atividades gratuitas)",
+        "medium": "Orçamento médio: R$ 300-500 por dia (inclui hospedagem em pousada, refeições em restaurantes de médio porte e atividades pagas)",
+        "high": "Orçamento confortável: R$ 600-1.000 por dia (inclui hospedagem em hotel, refeições em restaurantes finos e atividades exclusivas)"
+    },
+    "transportation": "Para chegar em Paraty, você pode voar para o Rio de Janeiro e tomar um ônibus ou táxi para a cidade. Dentro da cidade, o transporte público é limitado, mas você pode caminhar ou alugar bicicletas para se locomover.",
+    "accommodation": "Paraty oferece uma variedade de opções de hospedagem, desde hostels e pousadas até hotéis de luxo. Os bairros mais recomendados para se hospedar são o Centro Histórico e os arredores, que oferecem fácil acesso às principais atrações.",
+    "localCuisine": [
+        {
+            "name": "Feijoada",
+            "description": "A feijoada é um prato típico brasileiro feito com feijão preto e carne de porco, servido com arroz, farofa e outras sides. É uma experiência culinária imperdível.",
+            "imageUrl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400"
+        },
+        {
+            "name": "Moqueca",
+            "description": "A moqueca é um prato típico do litoral brasileiro, feito com peixe ou frutos do mar, coconut milk e especiarias. É uma opção deliciosa e saudável.",
+            "imageUrl": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400"
+        },
+        {
+            "name": "Açaí",
+            "description": "O açaí é uma fruta típica da Amazônia, consumida como suco, sorvete ou acompanhamento. É rico em antioxidantes e uma ótima opção para saúde.",
+            "imageUrl": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400"
+        },
+        {
+            "name": "Caipirinha",
+            "description": "A caipirinha é uma bebida típica brasileira feita com cachaça, limão e açúcar. É uma ótima opção para relaxar e aproveitar o clima tropical.",
+            "imageUrl": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400"
+        }
+    ],
+    "date": "2025-10-06T22:50:21.006416-03:00"
+}

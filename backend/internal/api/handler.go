@@ -39,7 +39,18 @@ func (h *Handler) GetDailyDestination(w http.ResponseWriter, r *http.Request) {
 	log.Println("Fetching new destination from AI")
 	destination, err := h.aiClient.GetDailyDestination()
 	if err != nil {
-		log.Printf("Error fetching destination: %v", err)
+		log.Printf("Error fetching destination from AI: %v", err)
+		
+		// Fallback: tentar pegar um destino aleatório dos últimos 7
+		fallbackDestination, fallbackFound := h.cache.GetRandomRecentDestination()
+		if fallbackFound {
+			log.Println("Using fallback destination from recent cache")
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(fallbackDestination)
+			return
+		}
+		
+		// Se não há fallback disponível, retornar erro
 		http.Error(w, "Error fetching destination", http.StatusInternalServerError)
 		return
 	}
@@ -66,6 +77,31 @@ func (h *Handler) ClearCache(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"message": "Cache cleared successfully"})
+}
+
+// AddDestination adiciona um destino manualmente ao cache
+func (h *Handler) AddDestination(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var destination models.Destination
+	if err := json.NewDecoder(r.Body).Decode(&destination); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	// Adicionar ao cache
+	h.cache.Set(&destination)
+	
+	log.Printf("Added destination to cache: %s", destination.Name)
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{
+		"message": "Destination added to cache successfully",
+		"destination": destination.Name,
+	})
 }
 
 // GetAllDestinations retorna todos os destinos em cache
