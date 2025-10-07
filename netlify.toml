@@ -6,6 +6,26 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Proxy para API do backend - usando endpoint de teste que não depende de API externa
+[[redirects]]
+  from = "/api/destination"
+  to = "https://proximaviagem.fly.dev/api/destination/test"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/destination/test"
+  to = "https://proximaviagem.fly.dev/api/destination/test"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/health"
+  to = "https://proximaviagem.fly.dev/api/health"
+  status = 200
+  force = true
+
+# Fallback para SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"

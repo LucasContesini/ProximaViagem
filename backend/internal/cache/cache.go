@@ -33,7 +33,11 @@ func (c *Cache) Get() (*models.Destination, bool) {
 	}
 
 	// Usar sempre horário de São Paulo
-	loc, _ := time.LoadLocation("America/Sao_Paulo")
+	loc, err := time.LoadLocation("America/Sao_Paulo")
+	if err != nil {
+		// Fallback para UTC se não conseguir carregar o timezone
+		loc = time.UTC
+	}
 	now := time.Now().In(loc)
 	lastUpdateDate := c.lastUpdate.In(loc).Format("2006-01-02")
 	todayDate := now.Format("2006-01-02")
@@ -50,7 +54,11 @@ func (c *Cache) Set(destination *models.Destination) {
 	defer c.mu.Unlock()
 
 	// Usar sempre horário de São Paulo
-	loc, _ := time.LoadLocation("America/Sao_Paulo")
+	loc, err := time.LoadLocation("America/Sao_Paulo")
+	if err != nil {
+		// Fallback para UTC se não conseguir carregar o timezone
+		loc = time.UTC
+	}
 	now := time.Now().In(loc)
 
 	c.destination = destination
