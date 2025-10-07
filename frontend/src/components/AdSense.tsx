@@ -33,7 +33,7 @@ export const AdSense: React.FC<AdSenseProps> = ({
     <ins
       className={`adsbygoogle ${className}`}
       style={adStyle}
-      data-ad-client="ca-pub-SEU_ID_AQUI" // Substitua pelo seu ID do AdSense
+      data-ad-client="ca-pub-1841551118944574"
       data-ad-slot={adSlot}
       data-ad-format={adFormat}
       data-full-width-responsive="true"
