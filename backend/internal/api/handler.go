@@ -130,7 +130,7 @@ func (h *Handler) GetTestDestination(w http.ResponseWriter, r *http.Request) {
 	// Detecta o idioma preferido do usuário
 	acceptLang := r.Header.Get("Accept-Language")
 	lang := "pt" // default
-	
+
 	if strings.Contains(acceptLang, "en") {
 		lang = "en"
 	} else if strings.Contains(acceptLang, "es") {

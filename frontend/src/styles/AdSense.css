@@ -1,0 +1,69 @@
+/* Estilos para anúncios AdSense */
+.ad-banner-top,
+.ad-banner-bottom {
+  margin: 1.5rem 0;
+  text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: #f8f9fa;
+  padding: 1rem;
+}
+
+.dark-mode .ad-banner-top,
+.dark-mode .ad-banner-bottom {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.ad-banner-top {
+  margin-top: 0;
+}
+
+.ad-banner-bottom {
+  margin-bottom: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .ad-banner-top,
+  .ad-banner-bottom {
+    margin: 1rem 0;
+    padding: 0.5rem;
+  }
+}
+
+/* Anúncios inline */
+.adsbygoogle {
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Anúncios laterais (se usar no futuro) */
+.ad-sidebar {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 160px;
+  z-index: 1000;
+}
+
+@media (max-width: 1200px) {
+  .ad-sidebar {
+    display: none;
+  }
+}
+
+/* Anúncios no footer */
+.ad-footer {
+  margin: 2rem 0 1rem 0;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.dark-mode .ad-footer {
+  background: rgba(255, 255, 255, 0.02);
+}

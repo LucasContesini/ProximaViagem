@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Destination } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
+import { trackRandomDestination } from '../utils/googleAds';
 import '../styles/RandomDestination.css';
 
 interface RandomDestinationProps {
@@ -18,6 +19,8 @@ export const RandomDestination: React.FC<RandomDestinationProps> = ({ onRandomSe
       if (response.ok) {
         const destination = await response.json();
         onRandomSelect(destination);
+        // Track random destination action
+        trackRandomDestination();
       }
     } catch (error) {
       console.error('Erro ao buscar destino aleatório:', error);

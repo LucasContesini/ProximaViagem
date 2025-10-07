@@ -8,8 +8,10 @@ import { FavoritesList } from './components/FavoritesList';
 import { DarkModeToggle } from './components/DarkModeToggle';
 import { RandomDestination } from './components/RandomDestination';
 import { LanguageToggle } from './components/LanguageToggle';
+import { AdBanner } from './components/AdSense';
 import { useDestination } from './hooks/useDestination';
 import './styles/App.css';
+import './styles/AdSense.css';
 
 function App() {
   const { destination, loading, error, updateDestination } = useDestination();
@@ -24,13 +26,19 @@ function App() {
       <DestinationHistory onSelectDestination={updateDestination} />
       <Header />
       
-      <main className="main-content">
-        <div className="content-wrapper">
-          {loading && <Loading />}
-          {error && <Error message={error} />}
-          {destination && <DestinationCard destination={destination} />}
-        </div>
-      </main>
+          <main className="main-content">
+            <div className="content-wrapper">
+              {loading && <Loading />}
+              {error && <Error message={error} />}
+              {destination && (
+                <>
+                  <AdBanner className="ad-banner-top" />
+                  <DestinationCard destination={destination} />
+                  <AdBanner className="ad-banner-bottom" />
+                </>
+              )}
+            </div>
+          </main>
       
       <footer className="footer">
         <p>🌍 Próxima Viagem - Inspiração diária para suas aventuras</p>

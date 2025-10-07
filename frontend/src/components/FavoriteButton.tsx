@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Destination } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
+import { trackFavoriteAction } from '../utils/googleAds';
 import '../styles/FavoriteButton.css';
 
 interface FavoriteButtonProps {
@@ -40,6 +41,8 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ destination }) =
         // Adicionar aos favoritos
         favArray.unshift(destination);
         setIsFavorite(true);
+        // Track favorite action
+        trackFavoriteAction(destination.name);
       }
 
       localStorage.setItem('favorite-destinations', JSON.stringify(favArray));

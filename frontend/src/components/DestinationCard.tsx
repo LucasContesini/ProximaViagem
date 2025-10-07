@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Destination } from '../types';
 import { ShareButtons } from './ShareButtons';
 import { FavoriteButton } from './FavoriteButton';
 import { MapButton } from './MapButton';
 import { CuisineDropdown } from './CuisineDropdown';
 import { useLanguage } from '../contexts/LanguageContext';
+import { trackDestinationView } from '../utils/googleAds';
 import '../styles/DestinationCard.css';
 
 interface DestinationCardProps {
@@ -17,6 +18,11 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
   const images = destination.images && destination.images.length > 0 
     ? destination.images 
     : [destination.imageUrl];
+
+  // Track destination view
+  useEffect(() => {
+    trackDestinationView(destination.name);
+  }, [destination.name]);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
