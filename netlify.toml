@@ -21,6 +21,14 @@
   force = true
   headers = {X-From = "Netlify"}
 
+# Redirecionamento para API aleatória
+[[redirects]]
+  from = "/api/destination/random"
+  to = "https://proximaviagemapi.onrender.com/api/destination/random"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+
 # Fallback para SPA
 [[redirects]]
   from = "/*"
