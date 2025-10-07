@@ -5,7 +5,6 @@ import { FavoriteButton } from './FavoriteButton';
 import { MapButton } from './MapButton';
 import { CuisineDropdown } from './CuisineDropdown';
 import { useLanguage } from '../contexts/LanguageContext';
-import { trackDestinationView } from '../utils/googleAds';
 import '../styles/DestinationCard.css';
 
 interface DestinationCardProps {
@@ -21,7 +20,7 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({ destination })
 
   // Track destination view
   useEffect(() => {
-    trackDestinationView(destination.name);
+    // Tracking removido - Google Analytics desabilitado
   }, [destination.name]);
 
   const nextImage = () => {

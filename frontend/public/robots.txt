@@ -13,8 +13,20 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-Sitemap: https://frontend-nu-tawny-84.vercel.app/sitemap.xml
+# Yandex
+User-agent: YandexBot
+Allow: /
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+
+# Sitemap
+Sitemap: https://proxima-viagem.netlify.app/sitemap.xml
 
 # Crawl-delay para ser gentil com os servidores
 Crawl-delay: 1
+
+# Host
+Host: https://proxima-viagem.netlify.app
 
