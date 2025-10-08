@@ -29,13 +29,14 @@ func main() {
 	handler := api.NewHandler(cacheInstance, aiClient)
 
 	r := mux.NewRouter()
-	r.HandleFunc("/api/destination", handler.GetDailyDestination).Methods("GET")
-	r.HandleFunc("/api/destination/fallback", handler.GetTestDestination).Methods("GET")
-	r.HandleFunc("/api/destinations", handler.GetAllDestinations).Methods("GET")
-	r.HandleFunc("/api/destination/random", handler.GetRandomDestination).Methods("GET")
-	r.HandleFunc("/api/destination/add", handler.AddDestination).Methods("POST")
-	r.HandleFunc("/api/health", handler.HealthCheck).Methods("GET")
-	r.HandleFunc("/api/cache/clear", handler.ClearCache).Methods("POST")
+	r.HandleFunc("/api/destination", api.LoggingMiddleware(handler.GetDailyDestination)).Methods("GET")
+	r.HandleFunc("/api/destination/fallback", api.LoggingMiddleware(handler.GetTestDestination)).Methods("GET")
+	r.HandleFunc("/api/destinations", api.LoggingMiddleware(handler.GetAllDestinations)).Methods("GET")
+	r.HandleFunc("/api/destination/add", api.LoggingMiddleware(handler.AddDestination)).Methods("POST")
+	r.HandleFunc("/api/health", api.LoggingMiddleware(handler.HealthCheck)).Methods("GET")
+	r.HandleFunc("/api/metrics", api.LoggingMiddleware(handler.GetMetrics)).Methods("GET")
+	r.HandleFunc("/api/cache/clear", api.LoggingMiddleware(handler.ClearCache)).Methods("POST")
+	r.HandleFunc("/api/destination/force", api.LoggingMiddleware(handler.ForceNewDestination)).Methods("POST")
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},

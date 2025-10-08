@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/lcontesini/proxima-viagem/internal/ai"
 	"github.com/lcontesini/proxima-viagem/internal/cache"
@@ -16,6 +17,15 @@ type Handler struct {
 	aiClient *ai.Client
 }
 
+// LoggingMiddleware logs request details and response time
+func LoggingMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		next(w, r)
+		log.Printf("%s %s %v", r.Method, r.URL.Path, time.Since(start))
+	}
+}
+
 func NewHandler(cache *cache.Cache, aiClient *ai.Client) *Handler {
 	return &Handler{
 		cache:    cache,
@@ -24,41 +34,64 @@ func NewHandler(cache *cache.Cache, aiClient *ai.Client) *Handler {
 }
 
 func (h *Handler) GetDailyDestination(w http.ResponseWriter, r *http.Request) {
+	startTime := time.Now()
+	defer func() {
+		log.Printf("GetDailyDestination took %v", time.Since(startTime))
+	}()
+
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
+	// Adicionar headers de cache
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "public, max-age=3600") // Cache por 1 hora
+	w.Header().Set("ETag", `"destination-daily"`)
+
+	// Verificar se já temos um destino para hoje
 	destination, found := h.cache.Get()
 	if found {
-		log.Println("Returning cached destination")
-		w.Header().Set("Content-Type", "application/json")
+		log.Println("✅ Returning cached destination for today")
 		json.NewEncoder(w).Encode(destination)
 		return
 	}
 
-	log.Println("Fetching new destination from AI")
+	// Não temos destino para hoje, tentar gerar um novo
+	log.Println("🔄 No destination for today, fetching new one from AI")
 	destination, err := h.aiClient.GetDailyDestination()
 	if err != nil {
-		log.Printf("Error fetching destination from AI: %v", err)
-		
-		// Fallback: tentar pegar um destino aleatório dos últimos 7
-		fallbackDestination, fallbackFound := h.cache.GetRandomRecentDestination()
+		log.Printf("❌ Error fetching destination from AI: %v", err)
+
+		// Tentar usar fallback de destino antigo
+		fallbackDestination, fallbackFound := h.cache.GetFallbackDestination()
 		if fallbackFound {
-			log.Println("Using fallback destination from recent cache")
-			w.Header().Set("Content-Type", "application/json")
+			// Verificar se é destino estático de emergência
+			if fallbackDestination.ID == "dest-emergency-gramado" {
+				log.Printf("🚨 Using EMERGENCY static fallback: %s", fallbackDestination.Name)
+				w.Header().Set("X-Fallback", "emergency")
+				w.Header().Set("X-Fallback-Type", "static")
+			} else {
+				log.Printf("🎲 Using RANDOM fallback destination: %s (from %s)",
+					fallbackDestination.Name,
+					fallbackDestination.Date.Format("2006-01-02"))
+				w.Header().Set("X-Fallback", "random")
+				w.Header().Set("X-Fallback-Date", fallbackDestination.Date.Format("2006-01-02"))
+			}
+
 			json.NewEncoder(w).Encode(fallbackDestination)
 			return
 		}
-		
-		// Se não há fallback disponível, retornar erro
-		http.Error(w, "Error fetching destination", http.StatusInternalServerError)
+
+		// Se não há nenhum fallback disponível, retornar erro
+		log.Println("❌ No fallback destination available")
+		http.Error(w, "Error fetching destination and no fallback available", http.StatusInternalServerError)
 		return
 	}
 
+	// Sucesso! Salvar no cache
+	log.Printf("✅ Successfully fetched new destination: %s", destination.Name)
 	h.cache.Set(destination)
-
-	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(destination)
 }
 
@@ -80,6 +113,32 @@ func (h *Handler) ClearCache(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"message": "Cache cleared successfully"})
 }
 
+// ForceNewDestination força a geração de um novo destino (ignora cache)
+func (h *Handler) ForceNewDestination(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	log.Println("🔄 Force generating new destination (ignoring cache)")
+	destination, err := h.aiClient.GetDailyDestination()
+	if err != nil {
+		log.Printf("❌ Error forcing new destination: %v", err)
+		http.Error(w, "Error generating new destination", http.StatusInternalServerError)
+		return
+	}
+
+	h.cache.Set(destination)
+	log.Printf("✅ Force generated new destination: %s", destination.Name)
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message":     "New destination generated successfully",
+		"destination": destination.Name,
+		"date":        destination.Date.Format("2006-01-02"),
+	})
+}
+
 // AddDestination adiciona um destino manualmente ao cache
 func (h *Handler) AddDestination(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
@@ -95,12 +154,12 @@ func (h *Handler) AddDestination(w http.ResponseWriter, r *http.Request) {
 
 	// Adicionar ao cache
 	h.cache.Set(&destination)
-	
+
 	log.Printf("Added destination to cache: %s", destination.Name)
-	
+
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{
-		"message": "Destination added to cache successfully",
+		"message":     "Destination added to cache successfully",
 		"destination": destination.Name,
 	})
 }
@@ -118,40 +177,56 @@ func (h *Handler) GetAllDestinations(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(destinations)
 }
 
-// GetRandomDestination retorna um destino aleatório do cache ou gera um novo
-func (h *Handler) GetRandomDestination(w http.ResponseWriter, r *http.Request) {
+// GetMetrics retorna métricas de performance da API
+func (h *Handler) GetMetrics(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	destinations := h.cache.GetAll()
-	if len(destinations) == 0 {
-		// Se não tem nada em cache, pega o destino do dia
-		destination, found := h.cache.Get()
-		if !found {
-			// Se também não tem destino do dia, gera um novo
-			log.Println("No destinations in cache, generating new one for random endpoint")
-			newDestination, err := h.aiClient.GetDailyDestination()
-			if err != nil {
-				log.Printf("Error fetching destination: %v", err)
-				http.Error(w, "Error fetching destination", http.StatusInternalServerError)
-				return
+	recentDestinations := h.cache.GetRecentDestinations()
+
+	// Verificar se temos destino para hoje
+	_, hasTodayDestination := h.cache.Get()
+
+	// Verificar se temos fallback disponível
+	_, hasFallback := h.cache.GetFallbackDestination()
+
+	// Calcular data do último destino
+	var lastDestinationDate string
+	if len(destinations) > 0 {
+		var latestTime time.Time
+		for _, dest := range destinations {
+			if dest.Date.After(latestTime) {
+				latestTime = dest.Date
 			}
-			h.cache.Set(newDestination)
-			w.Header().Set("Content-Type", "application/json")
-			json.NewEncoder(w).Encode(newDestination)
-			return
 		}
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(destination)
-		return
+		lastDestinationDate = latestTime.Format("2006-01-02")
 	}
 
-	// Retorna um destino aleatório
-	randomIndex := len(destinations) / 2 // Simplificado, pode usar math/rand
+	// Informações sobre destinos recentes
+	var recentDestinationsInfo []map[string]interface{}
+	for _, dest := range recentDestinations {
+		recentDestinationsInfo = append(recentDestinationsInfo, map[string]interface{}{
+			"name": dest.Name,
+			"date": dest.Date.Format("2006-01-02"),
+		})
+	}
+
+	metrics := map[string]interface{}{
+		"total_destinations":       len(destinations),
+		"recent_destinations":      len(recentDestinations),
+		"recent_destinations_list": recentDestinationsInfo,
+		"has_today_destination":    hasTodayDestination,
+		"has_fallback":             hasFallback,
+		"last_destination_date":    lastDestinationDate,
+		"cache_status":             "active",
+		"timestamp":                time.Now().Format(time.RFC3339),
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(destinations[randomIndex])
+	json.NewEncoder(w).Encode(metrics)
 }
 
 func (h *Handler) GetTestDestination(w http.ResponseWriter, r *http.Request) {
