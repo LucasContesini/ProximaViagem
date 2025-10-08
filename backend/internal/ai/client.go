@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"strings"
@@ -55,7 +56,20 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
 		log.Printf("AI request took %v", time.Since(startTime))
 	}()
 
-	prompt := `Sugira um destino turístico brasileiro. Responda APENAS em JSON válido:
+	// Gerar número aleatório e timestamp para forçar variação
+	randomSeed := rand.Intn(1000)
+	timestamp := time.Now().Unix()
+	
+	prompt := fmt.Sprintf(`CONTEXTO: Você é parte do sistema "Próxima Viagem" que sugere um destino turístico brasileiro por dia. O sistema tem cache diário, então quando um usuário solicita um novo destino (forçando o cache), você DEVE sempre variar e escolher um destino DIFERENTE dos anteriores.
+
+REGRAS IMPORTANTES:
+- NUNCA repita Fernando de Noronha, Gramado ou qualquer destino que já foi sugerido recentemente
+- Varie entre diferentes tipos: praias, cidades históricas, montanhas, cachoeiras, cidades coloniais, destinos de ecoturismo
+- Escolha entre: Jericoacoara, Bonito, Chapada Diamantina, Ouro Preto, Paraty, Búzios, Trancoso, Morro de São Paulo, Lençóis Maranhenses, Serra da Canastra, Ilhabela, Campos do Jordão, Petrópolis, Tiradentes, Diamantina, Olinda, Recife, Salvador, Manaus, etc.
+- Seed de variação: %d
+- Timestamp: %d
+
+Sugira um destino turístico brasileiro DIFERENTE e variado. Responda APENAS em JSON válido:
 
 {
   "name": "Nome da cidade",
@@ -118,14 +132,14 @@ IMPORTANTE SOBRE IMAGENS:
 - IMPORTANTE: Se escolher "Fernando de Noronha", use imagens REAIS de Fernando de Noronha
 - Se escolher "Gramado", use imagens REAIS de Gramado
 - Se escolher "Bonito", use imagens REAIS de Bonito
-- NÃO use imagens genéricas - use fotos do DESTINO ESPECÍFICO!`
+- NÃO use imagens genéricas - use fotos do DESTINO ESPECÍFICO!`, randomSeed, timestamp)
 
 	reqBody := models.AIRequest{
 		Model: "llama-3.3-70b-versatile",
 		Messages: []models.AIMessage{
 			{
 				Role:    "system",
-				Content: "Você é um especialista em turismo brasileiro com conhecimento profundo sobre destinos, cultura, gastronomia e dicas práticas de viagem. Sempre responda em JSON válido com informações detalhadas e úteis. CRÍTICO: Para as imagens, use URLs do Unsplash que mostrem o DESTINO ESPECÍFICO mencionado. Busque imagens reais do lugar (ex: se escolher Fernando de Noronha, use imagens reais de Fernando de Noronha, não imagens genéricas de praias). Use termos de busca específicos como '[nome do destino] brazil' ou '[nome do destino] brasil' para encontrar fotos reais do lugar.",
+				Content: "Você é um especialista em turismo brasileiro e parte do sistema 'Próxima Viagem' que sugere destinos únicos por dia. CRÍTICO: SEMPRE varie os destinos - nunca repita Fernando de Noronha, Gramado ou qualquer destino já sugerido. O sistema tem cache diário e usuários podem forçar novos destinos, então você DEVE sempre escolher lugares diferentes. Varie entre praias, cidades históricas, montanhas, cachoeiras, cidades coloniais, destinos de ecoturismo, etc. Sempre responda em JSON válido com informações detalhadas e úteis. Para as imagens, use URLs do Unsplash que mostrem o DESTINO ESPECÍFICO mencionado. Busque imagens reais do lugar usando termos específicos como '[nome do destino] brazil' ou '[nome do destino] brasil'.",
 			},
 			{
 				Role:    "user",

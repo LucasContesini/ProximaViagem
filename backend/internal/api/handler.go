@@ -45,7 +45,11 @@ func (h *Handler) GetDailyDestination(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Verificar se deve ignorar cache (query param ou header)
-	ignoreCache := r.URL.Query().Get("force") == "true" || r.Header.Get("X-Force-New") == "true"
+	forceParam := r.URL.Query().Get("force")
+	forceHeader := r.Header.Get("X-Force-New")
+	ignoreCache := forceParam == "true" || forceHeader == "true"
+	
+	log.Printf("🔍 Debug - force param: '%s', force header: '%s', ignoreCache: %v", forceParam, forceHeader, ignoreCache)
 
 	// Adicionar headers de cache
 	w.Header().Set("Content-Type", "application/json")
@@ -96,9 +100,14 @@ func (h *Handler) GetDailyDestination(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Sucesso! Salvar no cache
+	// Sucesso! Salvar no cache apenas se não for force
 	log.Printf("✅ Successfully fetched new destination: %s", destination.Name)
-	h.cache.Set(destination)
+	if !ignoreCache {
+		h.cache.Set(destination)
+		log.Printf("💾 Destination saved to cache")
+	} else {
+		log.Printf("🚫 Force mode - destination NOT saved to cache")
+	}
 	json.NewEncoder(w).Encode(destination)
 }
 
@@ -119,7 +128,6 @@ func (h *Handler) ClearCache(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"message": "Cache cleared successfully"})
 }
-
 
 // AddDestination adiciona um destino manualmente ao cache
 func (h *Handler) AddDestination(w http.ResponseWriter, r *http.Request) {
