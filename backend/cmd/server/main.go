@@ -36,7 +36,6 @@ func main() {
 	r.HandleFunc("/api/health", api.LoggingMiddleware(handler.HealthCheck)).Methods("GET")
 	r.HandleFunc("/api/metrics", api.LoggingMiddleware(handler.GetMetrics)).Methods("GET")
 	r.HandleFunc("/api/cache/clear", api.LoggingMiddleware(handler.ClearCache)).Methods("POST")
-	r.HandleFunc("/api/destination/force", api.LoggingMiddleware(handler.ForceNewDestination)).Methods("POST")
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},

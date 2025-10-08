@@ -179,9 +179,52 @@ IMPORTANTE SOBRE IMAGENS:
 	content = strings.TrimSuffix(content, "```")
 	content = strings.TrimSpace(content)
 
-	var destination models.Destination
-	if err := json.Unmarshal([]byte(content), &destination); err != nil {
+	// Primeiro, fazer unmarshal para um map para poder processar localCuisine
+	var rawDestination map[string]interface{}
+	if err := json.Unmarshal([]byte(content), &rawDestination); err != nil {
 		return nil, fmt.Errorf("error parsing destination JSON: %w", err)
+	}
+
+	// Converter localCuisine se for array de strings
+	if localCuisine, exists := rawDestination["localCuisine"]; exists {
+		if cuisineArray, ok := localCuisine.([]interface{}); ok {
+			var convertedCuisine []models.CuisineDish
+			for _, item := range cuisineArray {
+				if str, ok := item.(string); ok {
+					// Se for string, converter para objeto
+					convertedCuisine = append(convertedCuisine, models.CuisineDish{
+						Name:        str,
+						Description: "Delicioso prato típico da região",
+						ImageURL:    "",
+					})
+				} else if obj, ok := item.(map[string]interface{}); ok {
+					// Se já for objeto, converter diretamente
+					dish := models.CuisineDish{}
+					if name, ok := obj["name"].(string); ok {
+						dish.Name = name
+					}
+					if desc, ok := obj["description"].(string); ok {
+						dish.Description = desc
+					}
+					if img, ok := obj["imageUrl"].(string); ok {
+						dish.ImageURL = img
+					}
+					convertedCuisine = append(convertedCuisine, dish)
+				}
+			}
+			rawDestination["localCuisine"] = convertedCuisine
+		}
+	}
+
+	// Converter de volta para JSON e depois para struct
+	convertedJSON, err := json.Marshal(rawDestination)
+	if err != nil {
+		return nil, fmt.Errorf("error converting destination: %w", err)
+	}
+
+	var destination models.Destination
+	if err := json.Unmarshal(convertedJSON, &destination); err != nil {
+		return nil, fmt.Errorf("error parsing converted destination JSON: %w", err)
 	}
 
 	destination.ID = fmt.Sprintf("dest-%d", time.Now().Unix())

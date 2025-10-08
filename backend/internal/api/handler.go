@@ -44,17 +44,24 @@ func (h *Handler) GetDailyDestination(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Verificar se deve ignorar cache (query param ou header)
+	ignoreCache := r.URL.Query().Get("force") == "true" || r.Header.Get("X-Force-New") == "true"
+
 	// Adicionar headers de cache
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "public, max-age=3600") // Cache por 1 hora
 	w.Header().Set("ETag", `"destination-daily"`)
 
-	// Verificar se já temos um destino para hoje
-	destination, found := h.cache.Get()
-	if found {
-		log.Println("✅ Returning cached destination for today")
-		json.NewEncoder(w).Encode(destination)
-		return
+	// Verificar se já temos um destino para hoje (a menos que force seja true)
+	if !ignoreCache {
+		destination, found := h.cache.Get()
+		if found {
+			log.Println("✅ Returning cached destination for today")
+			json.NewEncoder(w).Encode(destination)
+			return
+		}
+	} else {
+		log.Println("🔄 Force parameter detected - ignoring cache")
 	}
 
 	// Não temos destino para hoje, tentar gerar um novo
@@ -113,31 +120,6 @@ func (h *Handler) ClearCache(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"message": "Cache cleared successfully"})
 }
 
-// ForceNewDestination força a geração de um novo destino (ignora cache)
-func (h *Handler) ForceNewDestination(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	log.Println("🔄 Force generating new destination (ignoring cache)")
-	destination, err := h.aiClient.GetDailyDestination()
-	if err != nil {
-		log.Printf("❌ Error forcing new destination: %v", err)
-		http.Error(w, "Error generating new destination", http.StatusInternalServerError)
-		return
-	}
-
-	h.cache.Set(destination)
-	log.Printf("✅ Force generated new destination: %s", destination.Name)
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"message":     "New destination generated successfully",
-		"destination": destination.Name,
-		"date":        destination.Date.Format("2006-01-02"),
-	})
-}
 
 // AddDestination adiciona um destino manualmente ao cache
 func (h *Handler) AddDestination(w http.ResponseWriter, r *http.Request) {
