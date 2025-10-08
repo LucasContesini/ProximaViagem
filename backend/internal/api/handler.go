@@ -48,7 +48,7 @@ func (h *Handler) GetDailyDestination(w http.ResponseWriter, r *http.Request) {
 	forceParam := r.URL.Query().Get("force")
 	forceHeader := r.Header.Get("X-Force-New")
 	ignoreCache := forceParam == "true" || forceHeader == "true"
-	
+
 	log.Printf("🔍 Debug - force param: '%s', force header: '%s', ignoreCache: %v", forceParam, forceHeader, ignoreCache)
 
 	// Adicionar headers de cache
