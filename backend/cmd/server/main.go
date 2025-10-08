@@ -36,6 +36,7 @@ func main() {
 	r.HandleFunc("/api/health", api.LoggingMiddleware(handler.HealthCheck)).Methods("GET")
 	r.HandleFunc("/api/metrics", api.LoggingMiddleware(handler.GetMetrics)).Methods("GET")
 	r.HandleFunc("/api/cache/clear", api.LoggingMiddleware(handler.ClearCache)).Methods("POST")
+	r.HandleFunc("/sitemap.xml", api.LoggingMiddleware(handler.GenerateSitemap)).Methods("GET")
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},

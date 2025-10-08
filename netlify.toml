@@ -6,7 +6,7 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Backend externo no Render
+# Backend externo no Render - APIs específicas
 [[redirects]]
   from = "/api/destination"
   to = "https://proximaviagemapi.onrender.com/api/destination"
@@ -21,27 +21,78 @@
   force = true
   headers = {X-From = "Netlify"}
 
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "https://proximaviagemapi.onrender.com/sitemap.xml"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
 
-# Fallback para SPA
+[[redirects]]
+  from = "/api/destinations"
+  to = "https://proximaviagemapi.onrender.com/api/destinations"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+
+[[redirects]]
+  from = "/api/health"
+  to = "https://proximaviagemapi.onrender.com/api/health"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+
+[[redirects]]
+  from = "/api/metrics"
+  to = "https://proximaviagemapi.onrender.com/api/metrics"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+
+# Fallback para SPA - DEVE SER O ÚLTIMO
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Configurações de cache para resolver problemas de cache
+# Configurações de cache otimizadas
 [[headers]]
   for = "/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
+
+# Cache para páginas HTML - cache curto para permitir atualizações
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
+    Pragma = "no-cache"
+    ETag = "true"
 
 # Cache específico para assets estáticos
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Forçar atualização para arquivos específicos
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+    Expires = "0"
+    Last-Modified = "true"
+
+# Headers para APIs - sem cache
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+    Expires = "0"
 
 # Cache para arquivos de configuração
 [[headers]]

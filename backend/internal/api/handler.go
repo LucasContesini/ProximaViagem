@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -484,4 +485,137 @@ func (h *Handler) GetTestDestination(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write([]byte(testJSON))
+}
+
+// GenerateSitemap generates a dynamic sitemap including all destinations
+func (h *Handler) GenerateSitemap(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Get all destinations from cache
+	destinations := h.cache.GetAll()
+
+	// Base URL for the site
+	baseURL := "https://proxima-viagem.netlify.app"
+
+	// Start building the sitemap XML
+	sitemap := `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">`
+
+	// Add static pages
+	staticPages := []struct {
+		URL          string
+		LastMod      string
+		ChangeFreq   string
+		Priority     string
+		HasImage     bool
+		ImageURL     string
+		ImageTitle   string
+		ImageCaption string
+	}{
+		{
+			URL:          "/",
+			LastMod:      time.Now().Format("2006-01-02"),
+			ChangeFreq:   "daily",
+			Priority:     "1.0",
+			HasImage:     true,
+			ImageURL:     "/og-image.svg",
+			ImageTitle:   "Próxima Viagem - Destinos de Viagem Diários",
+			ImageCaption: "Descubra um novo destino de viagem todos os dias com dicas exclusivas e roteiros completos",
+		},
+		{
+			URL:        "/about.html",
+			LastMod:    time.Now().Format("2006-01-02"),
+			ChangeFreq: "monthly",
+			Priority:   "0.8",
+		},
+		{
+			URL:        "/contact.html",
+			LastMod:    time.Now().Format("2006-01-02"),
+			ChangeFreq: "monthly",
+			Priority:   "0.7",
+		},
+		{
+			URL:        "/privacy.html",
+			LastMod:    time.Now().Format("2006-01-02"),
+			ChangeFreq: "yearly",
+			Priority:   "0.5",
+		},
+		{
+			URL:        "/terms.html",
+			LastMod:    time.Now().Format("2006-01-02"),
+			ChangeFreq: "yearly",
+			Priority:   "0.5",
+		},
+	}
+
+	// Add static pages to sitemap
+	for _, page := range staticPages {
+		sitemap += fmt.Sprintf(`
+  <url>
+    <loc>%s%s</loc>
+    <lastmod>%s</lastmod>
+    <changefreq>%s</changefreq>
+    <priority>%s</priority>`, baseURL, page.URL, page.LastMod, page.ChangeFreq, page.Priority)
+
+		if page.HasImage {
+			sitemap += fmt.Sprintf(`
+    <image:image>
+      <image:loc>%s%s</image:loc>
+      <image:title>%s</image:title>
+      <image:caption>%s</image:caption>
+    </image:image>`, baseURL, page.ImageURL, page.ImageTitle, page.ImageCaption)
+		}
+
+		sitemap += `
+  </url>`
+	}
+
+	// Add destination pages
+	for _, dest := range destinations {
+		// Create destination URL (you might want to adjust this based on your frontend routing)
+		destURL := fmt.Sprintf("/destination/%s", dest.ID)
+		lastMod := dest.Date.Format("2006-01-02")
+
+		sitemap += fmt.Sprintf(`
+  <url>
+    <loc>%s%s</loc>
+    <lastmod>%s</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>%s</image:loc>
+      <image:title>%s - %s</image:title>
+      <image:caption>%s</image:caption>
+    </image:image>`, baseURL, destURL, lastMod, dest.ImageURL, dest.Name, dest.Country, dest.Description)
+
+		// Add additional images if available
+		for i, img := range dest.Images {
+			if i > 0 && i < 5 { // Limit to 5 images per destination
+				sitemap += fmt.Sprintf(`
+    <image:image>
+      <image:loc>%s</image:loc>
+      <image:title>%s - %s</image:title>
+    </image:image>`, img, dest.Name, dest.Country)
+			}
+		}
+
+		sitemap += `
+  </url>`
+	}
+
+	sitemap += `
+</urlset>`
+
+	// Set appropriate headers
+	w.Header().Set("Content-Type", "application/xml")
+	w.Header().Set("Cache-Control", "public, max-age=3600") // Cache for 1 hour
+
+	// Write the sitemap
+	w.Write([]byte(sitemap))
+
+	log.Printf("Generated sitemap with %d destinations", len(destinations))
 }
