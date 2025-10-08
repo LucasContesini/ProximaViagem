@@ -1,4 +1,4 @@
-const CACHE_NAME = 'proxima-viagem-v1';
+const CACHE_NAME = 'proxima-viagem-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -37,6 +37,11 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', (event) => {
+  // Skip caching for non-HTTP requests (like chrome-extension://)
+  if (!event.request.url.startsWith('http')) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
@@ -52,13 +57,17 @@ self.addEventListener('fetch', (event) => {
               return response;
             }
 
-            // Clone the response
-            const responseToCache = response.clone();
+            // Only cache requests from our domain
+            if (event.request.url.startsWith('https://proxima-viagem.netlify.app') || 
+                event.request.url.startsWith('https://proximaviagemapi.onrender.com')) {
+              // Clone the response
+              const responseToCache = response.clone();
 
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
+              caches.open(CACHE_NAME)
+                .then((cache) => {
+                  cache.put(event.request, responseToCache);
+                });
+            }
 
             return response;
           }
