@@ -1,6 +1,8 @@
 package cache
 
 import (
+	"fmt"
+	"strings"
 	"sync"
 	"time"
 
@@ -324,7 +326,14 @@ func (c *Cache) getStaticFallbackDestination() *models.Destination {
 
 	// Escolher um destino aleatório usando timestamp
 	index := int(time.Now().UnixNano()) % len(emergencyDestinations)
-	return emergencyDestinations[index]
+	selectedDestination := emergencyDestinations[index]
+	
+	// Gerar ID único para evitar duplicatas no histórico do frontend
+	selectedDestination.ID = fmt.Sprintf("dest-emergency-%s-%d", 
+		strings.ToLower(strings.ReplaceAll(selectedDestination.Name, " ", "-")), 
+		time.Now().Unix())
+	
+	return selectedDestination
 }
 
 // getLatestDestinationUnsafe - versão sem lock para uso interno
