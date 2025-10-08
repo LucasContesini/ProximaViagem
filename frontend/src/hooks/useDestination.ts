@@ -89,18 +89,21 @@ export const useDestination = () => {
 
   useEffect(() => {
     const loadDestination = async () => {
+      let savedToHistory = false; // Flag para evitar salvar múltiplas vezes
+      
       try {
         setLoading(true);
         setShowFallback(false);
         
         // Timer para mostrar fallback após 5 segundos
         const fallbackTimer = setTimeout(() => {
-          if (loading) {
+          if (loading && !savedToHistory) {
             console.log('⏰ Mostrando fallback após 5 segundos...');
             setShowFallback(true);
             const emergencyData = getEmergencyDestination();
             setDestination(emergencyData);
             saveToHistory(emergencyData);
+            savedToHistory = true;
           }
         }, 5000);
         
@@ -112,8 +115,11 @@ export const useDestination = () => {
         setDestination(data);
         setShowFallback(false);
         
-        // Salvar no histórico
-        saveToHistory(data);
+        // Salvar no histórico apenas se ainda não foi salvo
+        if (!savedToHistory) {
+          saveToHistory(data);
+          savedToHistory = true;
+        }
       } catch (err) {
         // NUNCA mostrar erro - sempre usar fallback
         console.log('⚠️ Erro no carregamento, usando fallback automático');
@@ -123,14 +129,24 @@ export const useDestination = () => {
           const fallbackData = await fetchDailyDestination();
           setDestination(fallbackData);
           setShowFallback(false);
-          saveToHistory(fallbackData);
+          
+          // Salvar no histórico apenas se ainda não foi salvo
+          if (!savedToHistory) {
+            saveToHistory(fallbackData);
+            savedToHistory = true;
+          }
         } catch (fallbackErr) {
           // Se até o fallback falhar, usar dados estáticos locais
           console.log('🎲 Usando dados estáticos de emergência');
           const emergencyData = getEmergencyDestination();
           setDestination(emergencyData);
           setShowFallback(true);
-          saveToHistory(emergencyData);
+          
+          // Salvar no histórico apenas se ainda não foi salvo
+          if (!savedToHistory) {
+            saveToHistory(emergencyData);
+            savedToHistory = true;
+          }
         }
       } finally {
         setLoading(false);
