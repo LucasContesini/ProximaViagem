@@ -102,20 +102,30 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
 }
 
 IMPORTANTE SOBRE IMAGENS:
-- Use APENAS URLs reais do Unsplash com IDs válidos
-- Formato obrigatório: https://images.unsplash.com/photo-[ID_NUMERICO]?w=800
-- IDs devem ser números reais do Unsplash (ex: 1544551763, 1578662996442, etc)
-- Escolha imagens que representem o destino específico
+- Use URLs do Unsplash com termos de busca específicos do destino
+- Formato: https://images.unsplash.com/photo-[ID]?w=800&auto=format&fit=crop&q=80
+- Para cada destino, use termos de busca específicos:
+  * Para praias: "praia [nome do lugar]", "beach [nome do lugar]"
+  * Para cidades: "[nome da cidade] brazil", "[nome da cidade] brasil"
+  * Para montanhas: "serra [nome]", "montanha [nome]"
+  * Para cachoeiras: "cachoeira [nome]", "waterfall [nome]"
+- Exemplos de URLs com busca específica:
+  * Fernando de Noronha: https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop&q=80
+  * Gramado: https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800&auto=format&fit=crop&q=80
+  * Bonito: https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&auto=format&fit=crop&q=80
 - Use IDs diferentes para cada imagem (não repita)
-- Exemplos de IDs válidos: 1544551763, 1578662996442, 1583212292454, 1571019613454
-- NÃO use placeholders como [ID1] ou [ID_UNICO] - use números reais!`
+- Foque em imagens que mostrem o lugar específico mencionado!
+- IMPORTANTE: Se escolher "Fernando de Noronha", use imagens REAIS de Fernando de Noronha
+- Se escolher "Gramado", use imagens REAIS de Gramado
+- Se escolher "Bonito", use imagens REAIS de Bonito
+- NÃO use imagens genéricas - use fotos do DESTINO ESPECÍFICO!`
 
 	reqBody := models.AIRequest{
 		Model: "llama-3.3-70b-versatile",
 		Messages: []models.AIMessage{
 			{
 				Role:    "system",
-				Content: "Você é um especialista em turismo brasileiro com conhecimento profundo sobre destinos, cultura, gastronomia e dicas práticas de viagem. Sempre responda em JSON válido com informações detalhadas e úteis. IMPORTANTE: Para as imagens, gere URLs do Unsplash específicas para o destino escolhido, usando IDs únicos e diferentes para cada imagem. Escolha imagens que representem o destino específico (praias para destinos costeiros, montanhas para destinos serranos, arquitetura colonial para cidades históricas, etc).",
+				Content: "Você é um especialista em turismo brasileiro com conhecimento profundo sobre destinos, cultura, gastronomia e dicas práticas de viagem. Sempre responda em JSON válido com informações detalhadas e úteis. CRÍTICO: Para as imagens, use URLs do Unsplash que mostrem o DESTINO ESPECÍFICO mencionado. Busque imagens reais do lugar (ex: se escolher Fernando de Noronha, use imagens reais de Fernando de Noronha, não imagens genéricas de praias). Use termos de busca específicos como '[nome do destino] brazil' ou '[nome do destino] brasil' para encontrar fotos reais do lugar.",
 			},
 			{
 				Role:    "user",
