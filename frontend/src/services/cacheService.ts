@@ -192,7 +192,7 @@ class CacheService {
     return diff < this.CACHE_DURATION;
   }
 
-  private getRandomFallbackDestination(): Destination {
+  private getFallbackDestination(): Destination {
     const randomIndex = Math.floor(Math.random() * FALLBACK_DESTINATIONS.length);
     const fallback = { ...FALLBACK_DESTINATIONS[randomIndex] };
     fallback.id = `dest-fallback-${Date.now()}`;
@@ -288,7 +288,7 @@ class CacheService {
 
     // Se não há cache, usar fallback
     console.log('🎲 Usando destino de fallback');
-    const fallbackDestination = this.getRandomFallbackDestination();
+    const fallbackDestination = this.getFallbackDestination();
     this.currentDestination = fallbackDestination;
     this.lastUpdate = new Date();
     this.saveToLocalStorage();

@@ -7,7 +7,6 @@ export const translations = {
     buttons: {
       favorites: 'Favoritos',
       history: 'Histórico',
-      random: 'Surpresa!',
       share: 'Compartilhar',
       favorite: 'Favoritar',
       favorited: 'Favoritado',
@@ -56,7 +55,6 @@ export const translations = {
     buttons: {
       favorites: 'Favorites',
       history: 'History',
-      random: 'Surprise!',
       share: 'Share',
       favorite: 'Favorite',
       favorited: 'Favorited',
@@ -105,7 +103,6 @@ export const translations = {
     buttons: {
       favorites: 'Favoritos',
       history: 'Historial',
-      random: '¡Sorpresa!',
       share: 'Compartir',
       favorite: 'Favorito',
       favorited: 'Favoritado',

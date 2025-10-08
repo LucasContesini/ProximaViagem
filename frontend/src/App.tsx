@@ -6,7 +6,6 @@ import { InstallPWA } from './components/InstallPWA';
 import { DestinationHistory } from './components/DestinationHistory';
 import { FavoritesList } from './components/FavoritesList';
 import { DarkModeToggle } from './components/DarkModeToggle';
-import { RandomDestination } from './components/RandomDestination';
 import { LanguageToggle } from './components/LanguageToggle';
 import { useDestination } from './hooks/useDestination';
 import './styles/App.css';
@@ -19,7 +18,6 @@ function App() {
       <DarkModeToggle />
       <LanguageToggle />
       <InstallPWA />
-      <RandomDestination onRandomSelect={updateDestination} />
       <FavoritesList onSelectDestination={updateDestination} />
       <DestinationHistory onSelectDestination={updateDestination} />
       <Header />
