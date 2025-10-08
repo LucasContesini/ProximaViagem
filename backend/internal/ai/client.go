@@ -62,12 +62,12 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
   "country": "Brasil", 
   "description": "Descrição envolvente em 2-3 frases",
   "detailedInfo": "Informação detalhada sobre história, cultura e características únicas",
-  "imageUrl": "https://images.unsplash.com/photo-[ID_UNICO]?w=800",
+  "imageUrl": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
   "images": [
-    "https://images.unsplash.com/photo-[ID1]?w=800",
-    "https://images.unsplash.com/photo-[ID2]?w=800", 
-    "https://images.unsplash.com/photo-[ID3]?w=800",
-    "https://images.unsplash.com/photo-[ID4]?w=800"
+    "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
+    "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800", 
+    "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800",
+    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800"
   ],
   "tips": [
     "Dica prática 1",
@@ -102,13 +102,13 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
 }
 
 IMPORTANTE SOBRE IMAGENS:
-- Gere URLs do Unsplash específicas para o destino escolhido
-- Use o formato: https://images.unsplash.com/photo-[ID_UNICO]?w=800
-- Substitua [ID_UNICO], [ID1], [ID2], [ID3], [ID4] por IDs reais do Unsplash
-- Escolha imagens que representem o destino específico (praias, montanhas, cidades, etc)
+- Use APENAS URLs reais do Unsplash com IDs válidos
+- Formato obrigatório: https://images.unsplash.com/photo-[ID_NUMERICO]?w=800
+- IDs devem ser números reais do Unsplash (ex: 1544551763, 1578662996442, etc)
+- Escolha imagens que representem o destino específico
 - Use IDs diferentes para cada imagem (não repita)
-- Exemplo: para "Fernando de Noronha" use imagens de praias paradisíacas
-- Exemplo: para "Gramado" use imagens de arquitetura europeia e montanhas`
+- Exemplos de IDs válidos: 1544551763, 1578662996442, 1583212292454, 1571019613454
+- NÃO use placeholders como [ID1] ou [ID_UNICO] - use números reais!`
 
 	reqBody := models.AIRequest{
 		Model: "llama-3.3-70b-versatile",
