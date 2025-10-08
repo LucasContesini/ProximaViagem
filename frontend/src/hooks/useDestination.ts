@@ -96,14 +96,26 @@ export const useDestination = () => {
         setShowFallback(false);
         
         // Timer para mostrar fallback após 5 segundos
-        const fallbackTimer = setTimeout(() => {
+        const fallbackTimer = setTimeout(async () => {
           if (loading && !savedToHistory) {
             console.log('⏰ Mostrando fallback após 5 segundos...');
             setShowFallback(true);
-            const emergencyData = getEmergencyDestination();
-            setDestination(emergencyData);
-            saveToHistory(emergencyData);
-            savedToHistory = true;
+            
+            // Tentar usar fallback do backend em vez de dados estáticos
+            try {
+              const fallbackData = await fetchDailyDestination();
+              setDestination(fallbackData);
+              setShowFallback(false);
+              saveToHistory(fallbackData);
+              savedToHistory = true;
+            } catch (fallbackErr) {
+              // Se fallback do backend falhar, usar dados estáticos locais
+              const emergencyData = getEmergencyDestination();
+              setDestination(emergencyData);
+              setShowFallback(true);
+              saveToHistory(emergencyData);
+              savedToHistory = true;
+            }
           }
         }, 5000);
         
