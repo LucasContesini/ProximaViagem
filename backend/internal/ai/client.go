@@ -62,12 +62,12 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
   "country": "Brasil", 
   "description": "Descrição envolvente em 2-3 frases",
   "detailedInfo": "Informação detalhada sobre história, cultura e características únicas",
-  "imageUrl": "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800",
+  "imageUrl": "https://images.unsplash.com/photo-[ID_UNICO]?w=800",
   "images": [
-    "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800",
-    "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=800", 
-    "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800",
-    "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800"
+    "https://images.unsplash.com/photo-[ID1]?w=800",
+    "https://images.unsplash.com/photo-[ID2]?w=800", 
+    "https://images.unsplash.com/photo-[ID3]?w=800",
+    "https://images.unsplash.com/photo-[ID4]?w=800"
   ],
   "tips": [
     "Dica prática 1",
@@ -101,32 +101,21 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
   ]
 }
 
-Use APENAS estas URLs de imagem (escolha 4 DIFERENTES para cada destino):
-- https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800 (Rio de Janeiro)
-- https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=800 (Praia brasileira)
-- https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800 (Cristo Redentor)
-- https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800 (Natureza Brasil)
-- https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=800 (Praia tropical)
-- https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800 (Paisagem montanhosa)
-- https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800 (Floresta tropical)
-- https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800 (Cidade histórica)
-- https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800 (Águas cristalinas)
-- https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800 (Mergulho/aventura)
-- https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800 (Vida marinha)
-- https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800 (Praia paradisíaca)
-- https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800 (Arquitetura colonial)
-- https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800 (Lago/mirante)
-- https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800 (Centro histórico)
-- https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800 (Aventura/trilha)
-
-IMPORTANTE: Escolha 4 URLs DIFERENTES e que façam sentido para o destino específico!`
+IMPORTANTE SOBRE IMAGENS:
+- Gere URLs do Unsplash específicas para o destino escolhido
+- Use o formato: https://images.unsplash.com/photo-[ID_UNICO]?w=800
+- Substitua [ID_UNICO], [ID1], [ID2], [ID3], [ID4] por IDs reais do Unsplash
+- Escolha imagens que representem o destino específico (praias, montanhas, cidades, etc)
+- Use IDs diferentes para cada imagem (não repita)
+- Exemplo: para "Fernando de Noronha" use imagens de praias paradisíacas
+- Exemplo: para "Gramado" use imagens de arquitetura europeia e montanhas`
 
 	reqBody := models.AIRequest{
 		Model: "llama-3.3-70b-versatile",
 		Messages: []models.AIMessage{
 			{
 				Role:    "system",
-				Content: "Você é um especialista em turismo brasileiro com conhecimento profundo sobre destinos, cultura, gastronomia e dicas práticas de viagem. Sempre responda em JSON válido com informações detalhadas e úteis. IMPORTANTE: Para as imagens, escolha 4 URLs DIFERENTES da lista fornecida que façam sentido para o destino específico (ex: para praias use imagens de praia, para cidades históricas use arquitetura colonial, etc).",
+				Content: "Você é um especialista em turismo brasileiro com conhecimento profundo sobre destinos, cultura, gastronomia e dicas práticas de viagem. Sempre responda em JSON válido com informações detalhadas e úteis. IMPORTANTE: Para as imagens, gere URLs do Unsplash específicas para o destino escolhido, usando IDs únicos e diferentes para cada imagem. Escolha imagens que representem o destino específico (praias para destinos costeiros, montanhas para destinos serranos, arquitetura colonial para cidades históricas, etc).",
 			},
 			{
 				Role:    "user",
