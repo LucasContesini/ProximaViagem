@@ -40,9 +40,11 @@ type CuisineDish struct {
 }
 
 type AIRequest struct {
-	Model     string      `json:"model"`
-	Messages  []AIMessage `json:"messages"`
-	MaxTokens int         `json:"max_tokens"`
+	Model       string      `json:"model"`
+	Messages    []AIMessage `json:"messages"`
+	MaxTokens   int         `json:"max_tokens"`
+	Seed        *int        `json:"seed,omitempty"`
+	Temperature *float64    `json:"temperature,omitempty"`
 }
 
 type AIMessage struct {

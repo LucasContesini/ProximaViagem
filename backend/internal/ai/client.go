@@ -59,7 +59,8 @@ func (c *Client) GetDailyDestination() (*models.Destination, error) {
 	// Gerar número aleatório e timestamp para forçar variação
 	randomSeed := rand.Intn(1000)
 	timestamp := time.Now().Unix()
-	
+	temperature := 0.8 // Alta aleatoriedade para variar destinos
+
 	prompt := fmt.Sprintf(`CONTEXTO: Você é parte do sistema "Próxima Viagem" que sugere um destino turístico brasileiro por dia. O sistema tem cache diário, então quando um usuário solicita um novo destino (forçando o cache), você DEVE sempre variar e escolher um destino DIFERENTE dos anteriores.
 
 REGRAS IMPORTANTES:
@@ -146,7 +147,9 @@ IMPORTANTE SOBRE IMAGENS:
 				Content: prompt,
 			},
 		},
-		MaxTokens: 2000, // Reduzido de 3000 para 2000
+		MaxTokens:   2000, // Reduzido de 3000 para 2000
+		Seed:        &randomSeed, // Usar seed aleatório para forçar variação
+		Temperature: &temperature, // Alta aleatoriedade (0.8) para variar destinos
 	}
 
 	jsonData, err := json.Marshal(reqBody)

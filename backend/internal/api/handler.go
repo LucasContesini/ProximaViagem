@@ -74,11 +74,18 @@ func (h *Handler) GetDailyDestination(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("❌ Error fetching destination from AI: %v", err)
 
-		// Tentar usar fallback de destino antigo
+		// Se estamos ignorando cache (force=true), não usar fallback - retornar erro
+		if ignoreCache {
+			log.Println("🚫 Force mode - not using fallback, returning error")
+			http.Error(w, "Error fetching destination from AI and force mode prevents fallback", http.StatusInternalServerError)
+			return
+		}
+
+		// Tentar usar fallback de destino antigo apenas se não for force
 		fallbackDestination, fallbackFound := h.cache.GetFallbackDestination()
 		if fallbackFound {
 			// Verificar se é destino estático de emergência
-			if fallbackDestination.ID == "dest-emergency-gramado" {
+			if strings.HasPrefix(fallbackDestination.ID, "dest-emergency-") {
 				log.Printf("🚨 Using EMERGENCY static fallback: %s", fallbackDestination.Name)
 				w.Header().Set("X-Fallback", "emergency")
 				w.Header().Set("X-Fallback-Type", "static")

@@ -180,22 +180,23 @@ func (c *Cache) GetFallbackDestination() (*models.Destination, bool) {
 	return c.getStaticFallbackDestination(), true
 }
 
-// getStaticFallbackDestination retorna um destino estático para emergência
+// getStaticFallbackDestination retorna um destino estático aleatório para emergência
 func (c *Cache) getStaticFallbackDestination() *models.Destination {
-	// Destino estático de emergência - Gramado
-	return &models.Destination{
-		ID:           "dest-emergency-gramado",
-		Name:         "Gramado",
-		Country:      "Brasil",
-		Description:  "Gramado é uma charmosa cidade na Serra Gaúcha, conhecida por sua arquitetura europeia, chocolates artesanais e clima de montanha.",
-		DetailedInfo: "Fundada por imigrantes alemães e italianos, Gramado preserva tradições europeias em sua arquitetura, gastronomia e cultura. A cidade é famosa por seus festivais, como o Natal Luz.",
-		ImageURL:     "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800",
-		Images: []string{
-			"https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800",
-			"https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800",
-			"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800",
-			"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
-		},
+	// Lista de destinos estáticos para emergência
+	emergencyDestinations := []*models.Destination{
+		{
+			ID:           "dest-emergency-gramado",
+			Name:         "Gramado",
+			Country:      "Brasil",
+			Description:  "Gramado é uma charmosa cidade na Serra Gaúcha, conhecida por sua arquitetura europeia, chocolates artesanais e clima de montanha.",
+			DetailedInfo: "Fundada por imigrantes alemães e italianos, Gramado preserva tradições europeias em sua arquitetura, gastronomia e cultura. A cidade é famosa por seus festivais, como o Natal Luz.",
+			ImageURL:     "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800",
+			Images: []string{
+				"https://images.unsplash.com/photo-1580837119756-563d608dd119?w=800",
+				"https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=800",
+				"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800",
+				"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+			},
 		Tips: []string{
 			"Reserve hotéis com antecedência durante o Natal Luz",
 			"Experimente os chocolates artesanais nas fábricas locais",
@@ -228,7 +229,102 @@ func (c *Cache) getStaticFallbackDestination() *models.Destination {
 			{Name: "Vinho e espumante", Description: "Produção local da Serra Gaúcha, reconhecida mundialmente"},
 		},
 		Date: time.Now(),
+	},
+	{
+		ID:           "dest-emergency-bonito",
+		Name:         "Bonito",
+		Country:      "Brasil",
+		Description:  "Bonito é o destino de ecoturismo mais famoso do Brasil, conhecido por suas águas cristalinas, grutas e cachoeiras.",
+		DetailedInfo: "Localizado no Mato Grosso do Sul, Bonito oferece experiências únicas de mergulho em rios de águas transparentes, flutuação e exploração de cavernas.",
+		ImageURL:     "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800",
+		Images: []string{
+			"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800",
+			"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
+			"https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800",
+			"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800",
+		},
+		Tips: []string{
+			"Reserve passeios com antecedência",
+			"Use protetor solar biodegradável",
+			"Leve roupas de banho e tênis aquático",
+			"Evite temporada de chuvas (dez-mar)",
+			"Contrate guias credenciados",
+			"Respeite o meio ambiente",
+		},
+		Attractions: []models.Attraction{
+			{Name: "Rio da Prata", Description: "Flutuação em águas cristalinas com peixes coloridos", Duration: "4-5 horas", Price: "R$ 200-250"},
+			{Name: "Gruta do Lago Azul", Description: "Caverna com lago subterrâneo de águas azuis", Duration: "2-3 horas", Price: "R$ 80-100"},
+			{Name: "Buraco das Araras", Description: "Dolina com centenas de araras vermelhas", Duration: "1-2 horas", Price: "R$ 60-80"},
+			{Name: "Aquário Natural", Description: "Mergulho com snorkel em águas transparentes", Duration: "3-4 horas", Price: "R$ 150-180"},
+			{Name: "Cachoeira Boca da Onça", Description: "Cachoeira de 156m de altura", Duration: "4-5 horas", Price: "R$ 120-150"},
+			{Name: "Balneário Municipal", Description: "Área de lazer com piscinas naturais", Duration: "2-3 horas", Price: "R$ 20-30"},
+		},
+		BestTime: "Abril a outubro (estação seca) para melhor visibilidade das águas",
+		Budget: models.Budget{
+			Low:    "R$ 300-400 por dia",
+			Medium: "R$ 500-700 por dia",
+			High:   "R$ 800-1200 por dia",
+		},
+		Transportation: "De avião: voe para Campo Grande e alugue um carro. Na cidade, use agências locais para passeios.",
+		Accommodation:  "Centro da cidade ou pousadas próximas aos atrativos. Hotéis e pousadas ecológicas.",
+		LocalCuisine: []models.CuisineDish{
+			{Name: "Peixe pintado", Description: "Peixe típico da região preparado na brasa"},
+			{Name: "Terrine de peixe", Description: "Patê de peixe servido com pão"},
+			{Name: "Cachaça artesanal", Description: "Bebida típica da região"},
+			{Name: "Doce de leite", Description: "Especialidade local"},
+		},
+		Date: time.Now(),
+	},
+	{
+		ID:           "dest-emergency-jericoacoara",
+		Name:         "Jericoacoara",
+		Country:      "Brasil",
+		Description:  "Jericoacoara é um paraíso no Ceará, famoso por suas dunas, lagoas e pôr do sol inesquecível.",
+		DetailedInfo: "Vila de pescadores que se tornou destino internacional, Jeri preserva seu charme rústico com ruas de areia e energia solar.",
+		ImageURL:     "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
+		Images: []string{
+			"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
+			"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800",
+			"https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800",
+			"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800",
+		},
+		Tips: []string{
+			"Leve dinheiro em espécie",
+			"Use roupas leves e protetor solar",
+			"Alugue buggy para explorar",
+			"Evite temporada de chuvas (jan-mar)",
+			"Reserve pousadas com antecedência",
+			"Experimente o pôr do sol na Duna do Pôr do Sol",
+		},
+		Attractions: []models.Attraction{
+			{Name: "Duna do Pôr do Sol", Description: "Vista panorâmica do pôr do sol mais famoso do Brasil", Duration: "2-3 horas", Price: "Grátis"},
+			{Name: "Lagoa do Paraíso", Description: "Lagoa de águas cristalinas cercada por dunas", Duration: "4-5 horas", Price: "R$ 80-120"},
+			{Name: "Pedra Furada", Description: "Formação rochosa natural com buraco", Duration: "2-3 horas", Price: "Grátis"},
+			{Name: "Lagoa Azul", Description: "Lagoa com águas azuis em meio às dunas", Duration: "3-4 horas", Price: "R$ 60-80"},
+			{Name: "Praia de Jericoacoara", Description: "Praia principal com ondas para surf", Duration: "2-4 horas", Price: "Grátis"},
+			{Name: "Serrote", Description: "Mirante com vista 360° da vila", Duration: "1-2 horas", Price: "Grátis"},
+		},
+		BestTime: "Julho a dezembro (estação seca) para melhor clima e águas das lagoas",
+		Budget: models.Budget{
+			Low:    "R$ 200-300 por dia",
+			Medium: "R$ 400-600 por dia",
+			High:   "R$ 700-1000 por dia",
+		},
+		Transportation: "De avião: voe para Fortaleza e pegue transfer ou alugue carro. Na vila, caminhe ou use buggy.",
+		Accommodation:  "Pousadas na vila ou próximas à praia. Hospedagem rústica e charmosa.",
+		LocalCuisine: []models.CuisineDish{
+			{Name: "Lagosta", Description: "Especialidade local preparada de várias formas"},
+			{Name: "Peixe frito", Description: "Peixe fresco frito na hora"},
+			{Name: "Açaí", Description: "Açaí cremoso servido com frutas"},
+			{Name: "Cajuína", Description: "Bebida refrescante feita de caju"},
+		},
+		Date: time.Now(),
+	},
 	}
+
+	// Escolher um destino aleatório usando timestamp
+	index := int(time.Now().UnixNano()) % len(emergencyDestinations)
+	return emergencyDestinations[index]
 }
 
 // getLatestDestinationUnsafe - versão sem lock para uso interno
