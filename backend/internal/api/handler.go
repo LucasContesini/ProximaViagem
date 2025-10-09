@@ -21,7 +21,13 @@ type Handler struct {
 
 // escapeXML escapes special characters for XML
 func escapeXML(s string) string {
-	return html.EscapeString(s)
+	// Replace common problematic characters
+	s = strings.ReplaceAll(s, "&", "&amp;")
+	s = strings.ReplaceAll(s, "<", "&lt;")
+	s = strings.ReplaceAll(s, ">", "&gt;")
+	s = strings.ReplaceAll(s, "\"", "&quot;")
+	s = strings.ReplaceAll(s, "'", "&apos;")
+	return s
 }
 
 // LoggingMiddleware logs request details and response time
