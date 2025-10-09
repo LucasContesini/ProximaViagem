@@ -601,7 +601,7 @@ func (h *Handler) GenerateSitemap(w http.ResponseWriter, r *http.Request) {
       <image:loc>%s</image:loc>
       <image:title>%s - %s</image:title>
       <image:caption>%s</image:caption>
-    </image:image>`, baseURL, destURL, lastMod, dest.ImageURL, escapeXML(dest.Name), escapeXML(dest.Country), escapeXML(dest.Description))
+    </image:image>`, baseURL, destURL, lastMod, escapeXML(dest.ImageURL), escapeXML(dest.Name), escapeXML(dest.Country), escapeXML(dest.Description))
 
 		// Add additional images if available
 		for i, img := range dest.Images {
@@ -610,7 +610,7 @@ func (h *Handler) GenerateSitemap(w http.ResponseWriter, r *http.Request) {
     <image:image>
       <image:loc>%s</image:loc>
       <image:title>%s - %s</image:title>
-    </image:image>`, img, escapeXML(dest.Name), escapeXML(dest.Country))
+    </image:image>`, escapeXML(img), escapeXML(dest.Name), escapeXML(dest.Country))
 			}
 		}
 
