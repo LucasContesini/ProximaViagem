@@ -3,7 +3,6 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"html"
 	"log"
 	"net/http"
 	"strings"
@@ -535,7 +534,7 @@ func (h *Handler) GenerateSitemap(w http.ResponseWriter, r *http.Request) {
 			Priority:     "1.0",
 			HasImage:     true,
 			ImageURL:     "/og-image.svg",
-			ImageTitle:   "Próxima Viagem - Destinos de Viagem Diários",
+			ImageTitle:   "Proxima Viagem - Destinos de Viagem Diarios",
 			ImageCaption: "Descubra um novo destino de viagem todos os dias com dicas exclusivas e roteiros completos",
 		},
 		{
