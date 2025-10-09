@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"html"
 	"log"
 	"net/http"
 	"strings"
@@ -16,6 +17,11 @@ import (
 type Handler struct {
 	cache    *cache.Cache
 	aiClient *ai.Client
+}
+
+// escapeXML escapes special characters for XML
+func escapeXML(s string) string {
+	return html.EscapeString(s)
 }
 
 // LoggingMiddleware logs request details and response time
@@ -567,7 +573,7 @@ func (h *Handler) GenerateSitemap(w http.ResponseWriter, r *http.Request) {
       <image:loc>%s%s</image:loc>
       <image:title>%s</image:title>
       <image:caption>%s</image:caption>
-    </image:image>`, baseURL, page.ImageURL, page.ImageTitle, page.ImageCaption)
+    </image:image>`, baseURL, page.ImageURL, escapeXML(page.ImageTitle), escapeXML(page.ImageCaption))
 		}
 
 		sitemap += `
@@ -590,7 +596,7 @@ func (h *Handler) GenerateSitemap(w http.ResponseWriter, r *http.Request) {
       <image:loc>%s</image:loc>
       <image:title>%s - %s</image:title>
       <image:caption>%s</image:caption>
-    </image:image>`, baseURL, destURL, lastMod, dest.ImageURL, dest.Name, dest.Country, dest.Description)
+    </image:image>`, baseURL, destURL, lastMod, dest.ImageURL, escapeXML(dest.Name), escapeXML(dest.Country), escapeXML(dest.Description))
 
 		// Add additional images if available
 		for i, img := range dest.Images {
@@ -599,7 +605,7 @@ func (h *Handler) GenerateSitemap(w http.ResponseWriter, r *http.Request) {
     <image:image>
       <image:loc>%s</image:loc>
       <image:title>%s - %s</image:title>
-    </image:image>`, img, dest.Name, dest.Country)
+    </image:image>`, img, escapeXML(dest.Name), escapeXML(dest.Country))
 			}
 		}
 
