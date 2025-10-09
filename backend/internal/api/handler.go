@@ -529,7 +529,7 @@ func (h *Handler) GenerateSitemap(w http.ResponseWriter, r *http.Request) {
 	}{
 		{
 			URL:          "/",
-			LastMod:      time.Now().Format("2006-01-02"),
+			LastMod:      "2024-10-08",
 			ChangeFreq:   "daily",
 			Priority:     "1.0",
 			HasImage:     true,
@@ -539,25 +539,25 @@ func (h *Handler) GenerateSitemap(w http.ResponseWriter, r *http.Request) {
 		},
 		{
 			URL:        "/about.html",
-			LastMod:    time.Now().Format("2006-01-02"),
+			LastMod:    "2024-10-08",
 			ChangeFreq: "monthly",
 			Priority:   "0.8",
 		},
 		{
 			URL:        "/contact.html",
-			LastMod:    time.Now().Format("2006-01-02"),
+			LastMod:    "2024-10-08",
 			ChangeFreq: "monthly",
 			Priority:   "0.7",
 		},
 		{
 			URL:        "/privacy.html",
-			LastMod:    time.Now().Format("2006-01-02"),
+			LastMod:    "2024-10-08",
 			ChangeFreq: "yearly",
 			Priority:   "0.5",
 		},
 		{
 			URL:        "/terms.html",
-			LastMod:    time.Now().Format("2006-01-02"),
+			LastMod:    "2024-10-08",
 			ChangeFreq: "yearly",
 			Priority:   "0.5",
 		},
@@ -589,7 +589,11 @@ func (h *Handler) GenerateSitemap(w http.ResponseWriter, r *http.Request) {
 	for _, dest := range destinations {
 		// Create destination URL (you might want to adjust this based on your frontend routing)
 		destURL := fmt.Sprintf("/destination/%s", dest.ID)
-		lastMod := dest.Date.Format("2006-01-02")
+		// Use current date or destination date, whichever is earlier to avoid future dates
+		lastMod := time.Now().Format("2006-01-02")
+		if dest.Date.Before(time.Now()) {
+			lastMod = dest.Date.Format("2006-01-02")
+		}
 
 		sitemap += fmt.Sprintf(`
   <url>
